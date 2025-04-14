@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutfest/routes.dart';
 import 'package:flutfest/theme.dart';
+import 'package:flutfest/views/home/home_screen.dart';
 import 'package:flutfest/views/login/login_screen.dart';
 import 'package:flutfest/views/register/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class FlutFest extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: const RegisterScreen(),
+      home: const LoginScreen(),
     );
   }
 }

@@ -17,69 +17,58 @@ FlutFest is a sleek and modern Flutter UI kit designed for event management appl
 ## 📂 Folder Structure
 
 ```
-FlutFest/
-│── assets/                      # Images, icons, and fonts
-│   │── fonts/                   
-│   │── icons/                   
-│   │── images/                   
-│
-│── lib/
-│   │── constants.dart           # Common constants
-│   │── main.dart                # Entry point
-│   │── routes.dart              # UI navigation structure using GetX
-│   │── theme.dart               # Theme configuration
-│
-│── lib/core/                    # Core utilities and services
-│   │── bindings/                # GetX Bindings for dependency injection
-│   │   │── auth_binding.dart
-│   │   │── event_binding.dart
-│   │
-│   │── services/                # API services or local storage handling
-│   │   │── auth_service.dart
-│   │   │── event_service.dart
-│   │
-│   │── utils/                   # Helper functions like date formatting
-│   │   │── date_utils.dart
-│   │   │── validation_utils.dart
-│
-│── lib/logic/                   # Business logic (Replaces `viewmodels/`)
-│   │── controllers/             # GetX Controllers
-│   │   │── auth_controller.dart
-│   │   │── event_controller.dart
-│   │
-│   │── models/                  # Data models
-│   │   │── event_model.dart
-│   │   │── user_model.dart
-│   │
-│   │── repositories/            # Data sources abstraction
-│   │   │── auth_repository.dart
-│   │   │── event_repository.dart
-│
-
-
-
-│── lib/views/                   # UI Screens
-│   │── home/                    
-│   │   │── home_screen.dart     # Home UI
-│   │
-│   │── login/                   
-│   │   │── login_screen.dart    # Login UI
-│   │
-│   │── register/                   
-│   │   │── register_screen.dart    # Login UI
-│   │
-│   │── welcome/                  
-│   │   │── welcome_screen.dart  # Welcome screen UI
-│
-│── lib/widgets/                 # Reusable UI components
-│   │── buttons/                 
-│   │   │── primary_button.dart  # Custom button
-│   │
-│   │── cards/                   
-│   │   │── event_card.dart      # Event detail card
-│
-│── pubspec.yaml                 # Dependencies and configurations
-│── README.md                    # Documentation
+flutfest/
+├── assets/
+│   ├── icons/
+│   │   └── social_media/
+│   │       ├── apple-logo.svg
+│   │       └── google-logo.svg
+│   └── images/
+│       └── flutfest_logo.svg
+├── lib/
+│   ├── constants.dart
+│   ├── core/
+│   │   ├── bindings/
+│   │   │   ├── auth_binding.dart
+│   │   │   └── event_binding.dart
+│   │   ├── services/
+│   │   │   ├── auth_service.dart
+│   │   │   └── event_service.dart
+│   │   └── utils/
+│   │       ├── date_utils.dart
+│   │       ├── snackbar_helper.dart
+│   │       └── validation_utils.dart
+│   ├── logic/
+│   │   ├── controllers/
+│   │   │   ├── auth_controller.dart
+│   │   │   └── event_controller.dart
+│   │   ├── models/
+│   │   │   ├── event_model.dart
+│   │   │   └── user_model.dart
+│   │   └── repositories/
+│   │       ├── auth_repository.dart
+│   │       └── event_repository.dart
+│   ├── main.dart
+│   ├── routes.dart
+│   ├── theme.dart
+│   ├── theme_helper.dart
+│   ├── views/
+│   │   ├── home/
+│   │   │   └── home_screen.dart
+│   │   ├── login/
+│   │   │   └── login_screen.dart
+│   │   ├── register/
+│   │   │   └── register_screen.dart
+│   │   └── welcome/
+│   │       └── welcome_screen.dart
+│   └── widgets/
+│       ├── buttons/
+│       │   └── primary_button.dart
+│       ├── cards/
+│       │   └── event_card.dart
+│       └── intro_background.dart
+├── pubspec.yaml
+└── README.md                  # Documentation
 ```
 
 ## 📦 How to Use
