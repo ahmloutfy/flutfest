@@ -2,18 +2,22 @@ import 'package:flutfest/theme.dart';
 import 'package:flutter/material.dart';
 
 void showCustomSnackBar(BuildContext context, String message) {
-  ScaffoldMessenger.of(context).showSnackBar(
+
+  final messenger = ScaffoldMessenger.of(context);
+  messenger.hideCurrentSnackBar();
+
+  messenger.showSnackBar(
     SnackBar(
       backgroundColor: AppTheme.isDarkMode(context)
-          ? AppTheme.lightBackground// Dark background color in dark mode
-          : AppTheme.darkBackground, // Light background color in light mode
+          ? AppTheme.lightBackgroundColor// Dark background color in dark mode
+          : AppTheme.darkBackgroundColor, // Light background color in light mode
       content: Text(
         message,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: AppTheme.isDarkMode(context)
-              ? AppTheme.darkBackground // Dark text color in dark mode
-              : AppTheme.lightBackground, // Light text color in light mode
+              ? AppTheme.darkBackgroundColor // Dark text color in dark mode
+              : AppTheme.lightBackgroundColor, // Light text color in light mode
         ),
       ),
       behavior: SnackBarBehavior.floating,

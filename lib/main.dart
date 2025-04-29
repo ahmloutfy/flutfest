@@ -2,12 +2,9 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutfest/routes.dart';
 import 'package:flutfest/theme.dart';
 import 'package:flutfest/views/home/home_screen.dart';
-import 'package:flutfest/views/login/login_screen.dart';
-import 'package:flutfest/views/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-import 'views/welcome/welcome_screen.dart';
 
 void main() {
   runApp(DevicePreview(
@@ -31,7 +28,7 @@ class FlutFest extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: const LoginScreen(),
+      home: const HomeScreen(),
     );
   }
 }

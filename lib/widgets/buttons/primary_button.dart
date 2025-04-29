@@ -19,7 +19,9 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(backgroundColor: backgroundColor , foregroundColor: textColor),
+      style: ElevatedButton.styleFrom(
+
+          backgroundColor: backgroundColor , foregroundColor: textColor),
       onPressed: onPressed,
       child:
           icon == null

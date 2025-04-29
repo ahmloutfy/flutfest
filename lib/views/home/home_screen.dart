@@ -1,6 +1,9 @@
+import 'package:flutfest/core/utils/dummy_events.dart';
+import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/logic/models/event_model.dart';
+import 'package:flutfest/views/home/components/event_card.dart';
+import 'package:flutfest/views/home/components/events_categories.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:flutfest/theme.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,51 +14,60 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  List<Event> displayedEvents = DummyEvents.events;
+  // DateTime eventDate = DateTime.parse(event.date);
+
+  Map<int, bool> favoriteEvents = {};
+
+  void toggleFavorite(int eventId) {
+    setState(() {
+      favoriteEvents[eventId] = !(favoriteEvents[eventId] ?? false);
+    });
+  }
+
+  // void _filterEvents(String category) {
+  //   if (category == 'All') {
+  //     displayedEvents = DummyEvents.events;
+  //   } else if (category == 'Upcoming') {
+  //     displayedEvents = DummyEvents.events.where((event) => event.date?.isAfter(DateTime.now())).toList();
+  //   } else if (category == 'Expired') {
+  //     displayedEvents = DummyEvents.events.where((event) => event.date?.isBefore(DateTime.now())).toList();
+  //   } else if (category == 'Favorites') {
+  //     displayedEvents = DummyEvents.events.where((event) => isFavorite(event)).toList();
+  //   }
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        scrolledUnderElevation: 0,
         elevation: 0,
-        title: Text('FlutFest'),
+        title: Text(
+          'Welcome {User Name}',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              showCustomSnackBar(context, 'Search an event');
+            },
           ),
           IconButton(
             icon: Icon(Icons.account_circle),
-            onPressed: () {},
+            onPressed: () {
+              showCustomSnackBar(context, 'User Profile');
+            },
           ),
         ],
       ),
       body: Column(
         children: [
           // Event Categories
-          SizedBox(
-            height: 50,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                _buildTab('All'),
-                _buildTab('Upcoming'),
-                _buildTab('Favorites'),
-                _buildTab('Conferences'),
-                _buildTab('Workshops'),
-                _buildTab('Meetups'),
-              ],
-            ),
-          ),
+          EventsCategories(),
           // Event List
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return _buildEventCard();
-              },
-            ),
-          ),
+          EventCard(events: displayedEvents, eventsFavorite: favoriteEvents, onFavoriteToggle: toggleFavorite,),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -65,15 +77,10 @@ class HomeScreenState extends State<HomeScreen> {
             _currentIndex = index;
           });
         },
+
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.event),
-            label: 'Events',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.event), label: 'Events'),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Account',
@@ -83,40 +90,9 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildTab(String title) {
-    return Container(
-      margin: EdgeInsets.all(8),
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Text(title),
-      ),
-    );
-  }
 
-  Widget _buildEventCard() {
-    return Card(
-      child: Column(
-        children: [
-          Image.asset('assets/images/event_image.jpg'),
-          ListTile(
-            title: Text('Event Name'),
-            subtitle: Text('Date and Location'),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('Join'),
-              ),
-              IconButton(
-                icon: Icon(Icons.favorite_border),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 }
+
+
+
+
