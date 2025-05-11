@@ -6,6 +6,7 @@ import 'package:flutfest/views/home/components/events_categories.dart';
 import '../../../core/utils/dummy_events.dart';
 import '../../../logic/models/event_model.dart';
 
+
 class HomeTabScreen extends StatefulWidget {
   const HomeTabScreen({super.key});
 
@@ -34,7 +35,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
         case 'Upcoming':
           return eventDate.isAfter(now) || (event.isUpcomingForDemo == true);
         case 'Expired':
-          return eventDate.isBefore(now) || (event.isUpcomingForDemo != true);
+          return eventDate.isBefore(now) && (event.isUpcomingForDemo != true);
         case 'Favorites':
           return favoriteEvents[event.id] == true;
         default:
@@ -45,23 +46,46 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        EventsCategories(
-          selectedTab: selectedTab,
-          onTabSelected: (tab) {
-            setState(() {
-              selectedTab = tab;
-            });
-            showCustomSnackBar(context, '$tab events');
-          },
-        ),
-        EventCard(
-          events: filteredEvents,
-          eventsFavorite: favoriteEvents,
-          onFavoriteToggle: toggleFavorite,
-        ),
-      ],
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final isTablet = constraints.maxWidth > 600;
+        return Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: isTablet
+                  ? SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: EventsCategories(
+                  selectedTab: selectedTab,
+                  onTabSelected: (tab) {
+                    setState(() {
+                      selectedTab = tab;
+                    });
+                    showCustomSnackBar(context, '$tab events');
+                  },
+                ),
+              )
+                  : EventsCategories(
+                selectedTab: selectedTab,
+                onTabSelected: (tab) {
+                  setState(() {
+                    selectedTab = tab;
+                  });
+                  showCustomSnackBar(context, '$tab events');
+                },
+              ),
+            ),
+            Expanded(
+              child: EventCard(
+                events: filteredEvents,
+                eventsFavorite: favoriteEvents,
+                onFavoriteToggle: toggleFavorite,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
