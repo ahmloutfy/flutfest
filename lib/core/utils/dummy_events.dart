@@ -54,6 +54,7 @@ class DummyEvents {
       description: 'A thrilling music concert.',
       date: '2024-10-01',
       location: 'Cairo',
+      isUpcomingForDemo: true,
     ),
     Event(
       image: '${AppTheme.eventDirectory}festival.jpeg',
@@ -62,6 +63,7 @@ class DummyEvents {
       description: 'A vibrant cultural festival.',
       date: '2024-10-15',
       location: 'Alexandria',
+      isUpcomingForDemo: true,
     ),
     Event(
       image: '${AppTheme.eventDirectory}seminar.jpeg',
@@ -70,6 +72,7 @@ class DummyEvents {
       description: 'An informative business seminar.',
       date: '2024-11-01',
       location: 'Giza',
+      isUpcomingForDemo: true,
     ),
     Event(
       image: '${AppTheme.eventDirectory}exhibition.jpeg',
@@ -78,6 +81,7 @@ class DummyEvents {
       description: 'A stunning art exhibition.',
       date: '2024-11-15',
       location: 'Aswan',
+      isUpcomingForDemo: true,
     ),
     Event(
       image: '${AppTheme.eventDirectory}charity_gala.jpeg',
@@ -86,6 +90,7 @@ class DummyEvents {
       description: 'A luxurious charity gala.',
       date: '2024-12-01',
       location: 'Luxor',
+      isUpcomingForDemo: true,
     ),
   ];
 }

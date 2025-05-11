@@ -1,4 +1,3 @@
-import 'package:flutfest/core/utils/dummy_events.dart';
 import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutfest/theme.dart';

@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutfest/views/login/login_screen.dart';
 import 'package:flutfest/views/register/register_screen.dart';
 import 'package:flutfest/views/welcome/welcome_screen.dart';
-import 'package:flutfest/views/home/home_screen.dart';
+import 'package:flutfest/views/home/screens/home_screen.dart';
 
 class Routes {
   // Define all the named routes in this class

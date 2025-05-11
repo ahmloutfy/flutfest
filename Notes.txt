@@ -4,7 +4,3 @@ https://www.meta.ai/prompt/9462205077161615
 
 https://gemini.google.com/u/1/app/24463ed6017ca0e0
 
-
-تكملة ال navigation bar
-
-فرز للأحداث حسب السابقة والمقبل والمفضلة

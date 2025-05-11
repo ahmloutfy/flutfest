@@ -1,18 +1,15 @@
-import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/theme.dart';
 import 'package:flutter/material.dart';
 
-class EventsCategories extends StatefulWidget {
+class EventsCategories extends StatelessWidget {
+  final String selectedTab;
+  final Function(String) onTabSelected;
+
   const EventsCategories({
     super.key,
+    required this.selectedTab,
+    required this.onTabSelected,
   });
-
-  @override
-  State<EventsCategories> createState() => _EventsCategoriesState();
-}
-
-class _EventsCategoriesState extends State<EventsCategories> {
-  String selectedTab = 'All';
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +39,9 @@ class _EventsCategoriesState extends State<EventsCategories> {
     return Container(
       margin: EdgeInsets.all(8),
       child: ElevatedButton(
-
-        onPressed: () {
-          setState(() {
-            selectedTab = title;
-          });
-          showCustomSnackBar(context, '$title events');
-        },
+        onPressed: () => onTabSelected(title),
         style: ElevatedButton.styleFrom(
-          elevation:  0,
+          elevation: 0,
           backgroundColor: isSelected ? selectedButtonColor : unselectedButtonColor,
           foregroundColor: isSelected ? selectedTextColor : unselectedTextColor,
           side: BorderSide(color: selectedButtonColor),
@@ -65,7 +56,6 @@ class _EventsCategoriesState extends State<EventsCategories> {
             fontWeight: FontWeight.bold,
           ),
         ),
-
       ),
     );
   }
