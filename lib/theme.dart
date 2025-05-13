@@ -156,6 +156,16 @@ class AppTheme {
       selectedLabelStyle: GoogleFonts.montserrat(fontSize: 12, fontWeight: FontWeight.w600),
       unselectedLabelStyle: GoogleFonts.montserrat(fontSize: 12, fontWeight: FontWeight.w500),
     ),
+    iconTheme: const IconThemeData(
+      color: lightButtonColor,
+      size: 24.0,
+    ),
+    iconButtonTheme: IconButtonThemeData(
+      style: ButtonStyle(
+        iconColor: WidgetStateProperty.all<Color>(lightButtonColor),
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(8.0),),
+      ),
+    ),
   );
 
   // 🌙 Dark Theme
@@ -251,6 +261,16 @@ class AppTheme {
       unselectedItemColor: darkTextColor.withValues(alpha: 0.6),
       selectedLabelStyle: GoogleFonts.montserrat(fontSize: 12, fontWeight: FontWeight.w600),
       unselectedLabelStyle: GoogleFonts.montserrat(fontSize: 12, fontWeight: FontWeight.w500),
+    ),
+    iconTheme: const IconThemeData(
+      color: darkButtonColor,
+      size: 24.0,
+    ),
+    iconButtonTheme: IconButtonThemeData(
+      style: ButtonStyle(
+        iconColor: WidgetStateProperty.all<Color>(darkButtonColor),
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(8.0),),
+      ),
     ),
   );
 }

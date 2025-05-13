@@ -1,8 +1,11 @@
 import 'package:flutfest/core/utils/dummy_events.dart';
+import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutfest/views/accounts/account_screen.dart';
 import 'package:flutfest/views/events/my_events_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../notifications/notifications_screen.dart';
 import 'home_tab_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -59,10 +62,35 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Welcome {User Name}',
+          'Welcome User',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
+        actions: [
+
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              Get.to(() => const NotificationsScreen(),);
+
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+
+              showCustomSnackBar(context, 'Search for events');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              showCustomSnackBar(context, 'Configure settings');
+            },
+          ),
+
+        ],
       ),
+
       body: screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../widgets/buttons/primary_button.dart';
-import '../../widgets/intro_background.dart';
+import '../../widgets/backgrounds/intro_background.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
