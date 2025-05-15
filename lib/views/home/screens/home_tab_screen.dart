@@ -1,11 +1,13 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/logic/controllers/favorite_controller.dart';
+import 'package:flutfest/views/details/event_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutfest/views/home/components/event_card.dart';
 import 'package:flutfest/views/home/components/events_categories.dart';
+import 'package:get/get.dart';
 
 import '../../../core/utils/dummy_events.dart';
 import '../../../logic/models/event_model.dart';
-
 
 class HomeTabScreen extends StatefulWidget {
   const HomeTabScreen({super.key});
@@ -16,13 +18,7 @@ class HomeTabScreen extends StatefulWidget {
 
 class _HomeTabScreenState extends State<HomeTabScreen> {
   String selectedTab = 'All';
-  Map<int, bool> favoriteEvents = {};
-
-  void toggleFavorite(int eventId) {
-    setState(() {
-      favoriteEvents[eventId] = !(favoriteEvents[eventId] ?? false);
-    });
-  }
+  FavoriteController favController = Get.put(FavoriteController());
 
   List<Event> get filteredEvents {
     final now = DateTime.now();
@@ -37,11 +33,15 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
         case 'Expired':
           return eventDate.isBefore(now) && (event.isUpcomingForDemo != true);
         case 'Favorites':
-          return favoriteEvents[event.id] == true;
+          return favController.favoriteEvents[event.id] == true;
         default:
           return true;
       }
     }).toList();
+  }
+
+  void _navigateToEventDetails(Event event) {
+    Get.to(() => EventDetailsScreen(event: event),);
   }
 
   @override
@@ -79,8 +79,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
             Expanded(
               child: EventCard(
                 events: filteredEvents,
-                eventsFavorite: favoriteEvents,
-                onFavoriteToggle: toggleFavorite,
+                eventsFavorite: favController.favoriteEvents,
+                onFavoriteToggle: favController.toggleFavorite,
+                onEventTap: _navigateToEventDetails, // تمرير دالة الانتقال
               ),
             ),
           ],

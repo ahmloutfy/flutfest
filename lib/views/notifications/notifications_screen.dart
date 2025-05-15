@@ -1,85 +1,177 @@
+import 'package:flutfest/logic/models/event_model.dart';
+import 'package:flutfest/views/details/event_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart'; // imported implicitly by AppTheme
 
-class NotificationsScreen extends StatelessWidget {
+class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
 
   @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
+  late Event event;
+  List<Map<String, String>> notifications = [
+    {
+      'title': 'Upcoming Event Reminder',
+      'message': 'The "Music Concert" event will start tomorrow at 8:00 PM.',
+      'time': '5 minutes ago',
+    },
+    {
+      'title': 'Booking Status Updated',
+      'message':
+      'Your VIP ticket booking for the "Art Exhibition" event has been confirmed.',
+      'time': '30 minutes ago',
+    },
+    {
+      'title': 'Important Announcement',
+      'message':
+      'The registration period for the "Cultural Festival" has been extended until the end of the week.',
+      'time': '1 hour ago',
+    },
+  ];
+
+  void _refreshNotifications() {
+    setState(() {
+      // simulate clearing notifications for testing
+      notifications.clear();
+      // Or simulate new fetch logic here
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Notifications',
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: theme.textTheme.headlineSmall,
         ),
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        iconTheme: Theme.of(context).iconTheme, // Using the icon theme from the app theme
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildNotificationItem(context,
-              title: 'Upcoming Event Reminder',
-              message: 'The "Music Concert" event will start tomorrow at 8:00 PM.',
-              time: '5 minutes ago'),
-          const Divider(),
-          _buildNotificationItem(context,
-              title: 'Booking Status Updated',
-              message: 'Your VIP ticket booking for the "Art Exhibition" event has been confirmed.',
-              time: '30 minutes ago'),
-          const Divider(),
-          _buildNotificationItem(context,
-              title: 'Important Announcement',
-              message: 'The registration period for the "Cultural Festival" has been extended until the end of the week.',
-              time: '1 hour ago'),
-          const Divider(),
-          // You can add more notification items here
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: _refreshNotifications,
+            tooltip: 'Refresh Notifications',
+          ),
         ],
+      ),
+      body: notifications.isEmpty
+          ? Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.notifications_off,
+                  size: 80, color: Colors.grey.shade400),
+              const SizedBox(height: 16),
+              Text(
+                'You\'re all caught up!',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'No new notifications at the moment.',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: Colors.grey,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.home),
+                label: const Text('Back to Home'),
+                onPressed: () => Navigator.of(context).pop(),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      )
+          : ListView.separated(
+        padding: const EdgeInsets.all(16),
+        itemCount: notifications.length,
+        separatorBuilder: (_, __) => const Divider(),
+        itemBuilder: (context, index) {
+          final notification = notifications[index];
+          return  _buildNotificationItem(
+            context,
+            title: notification['title']!,
+            message: notification['message']!,
+            time: notification['time']!,
+            icon: Icons.event_note,
+            onTap: () {
+              Get.to(() => EventDetailsScreen(event: event),);
+            },
+          );
+        },
       ),
     );
   }
 
-  Widget _buildNotificationItem(BuildContext context,
-      {required String title, required String message, required String time, IconData? icon}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: Get.height * 0.01), // 1% of screen height for vertical padding
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon ?? Icons.notifications_active,
-              size: Get.width * 0.06), // 6% of screen width for icon size
-          SizedBox(width: Get.width * 0.04), // 4% of screen width for horizontal spacing
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontSize: Get.width * 0.045, // 4.5% of screen width for title font size
-                    color: Theme.of(context).colorScheme.onSurface,
+  Widget _buildNotificationItem(
+      BuildContext context, {
+        required String title,
+        required String message,
+        required String time,
+        IconData? icon,
+        final Function()? onTap
+      }) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: Get.height * 0.01),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon ?? Icons.notifications_active,
+                size: Get.width * 0.06, color: Theme.of(context).colorScheme.primary),
+            SizedBox(width: Get.width * 0.04),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontSize: Get.width * 0.045,
+                    ),
                   ),
-                ),
-                SizedBox(height: Get.height * 0.005), // 0.5% of screen height for spacing
-                Text(
-                  message,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontSize: Get.width * 0.035, // 3.5% of screen width for message font size
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+                  SizedBox(height: Get.height * 0.005),
+                  Text(
+                    message,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontSize: Get.width * 0.035,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.8),
+                    ),
                   ),
-                ),
-                SizedBox(height: Get.height * 0.01), // 1% of screen height for spacing
-                Text(
-                  time,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontSize: Get.width * 0.03, // 3% of screen width for time font size
+                  SizedBox(height: Get.height * 0.01),
+                  Text(
+                    time,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: Get.width * 0.03,
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -5,11 +5,6 @@ class MyEventsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'All Events (or upcoming/past...)',
-        style: Theme.of(context).textTheme.headlineSmall,
-      ),
-    );
+    return const Placeholder();
   }
 }
