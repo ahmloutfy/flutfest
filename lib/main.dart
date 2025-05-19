@@ -8,6 +8,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() {
   runApp(DevicePreview(
+
     enabled: false,
 
     builder: (context) => const FlutFest(),),);
