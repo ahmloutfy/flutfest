@@ -4,29 +4,25 @@ import 'package:flutter/material.dart';
 class EventImage extends StatelessWidget {
   const EventImage({
     super.key,
-    required this.event,
+    required this.event,  this.imageHeight,
   });
 
   final Event event;
+  final double? imageHeight;
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(12),
-        topRight: Radius.circular(12),
-      ),
-      child: Image.asset(
-        '${event.image}',
-        fit: BoxFit.cover,
-        height: 150,
-        errorBuilder: (context, error, stackTrace) {
-          return const SizedBox(
-            height: 150,
-            child: Center(child: Icon(Icons.image_not_supported)),
-          );
-        },
-      ),
+    return Image.asset(
+      alignment: Alignment(0, -0.3),
+      '${event.image}',
+      fit: BoxFit.cover,
+      height: imageHeight,
+      errorBuilder: (context, error, stackTrace) {
+        return const SizedBox(
+          height: 150,
+          child: Center(child: Icon(Icons.image_not_supported)),
+        );
+      },
     );
   }
 }

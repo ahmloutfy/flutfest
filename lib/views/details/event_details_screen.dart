@@ -1,5 +1,8 @@
+import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/logic/controllers/favorite_controller.dart';
 import 'package:flutfest/logic/models/event_model.dart';
+import 'package:flutfest/widgets/buttons/add_to_calendar_button.dart';
+import 'package:flutfest/widgets/buttons/booking_button.dart';
 import 'package:flutfest/widgets/images/event_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
@@ -8,36 +11,47 @@ import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class EventDetailsScreen extends StatelessWidget {
+import '../booking/booking_confirmation_screen.dart';
+
+class EventDetailsScreen extends StatefulWidget {
   final Event event;
 
   const EventDetailsScreen({super.key, required this.event});
 
   @override
+  State<EventDetailsScreen> createState() => _EventDetailsScreenState();
+}
+
+class _EventDetailsScreenState extends State<EventDetailsScreen> {
+  bool isBooked = false;
+
+  @override
   Widget build(BuildContext context) {
-    FavoriteController favController = Get.put(FavoriteController(),);
     final theme = Theme.of(context);
     final formattedDate = DateFormat(
       'EEEE, MMMM d, yyyy h:mm a',
-    ).format(DateTime.parse(event.date!),);
+    ).format(DateTime.parse(widget.event.date!));
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(event.title ?? 'Event details'),
+        title: Text(widget.event.title ?? 'Event details'),
         actions: [
           IconButton(
             icon: const Icon(Icons.share),
             onPressed: () {
-
               SharePlus.instance.share(
-                  ShareParams(text: 'Check out this event: ${event.title} - ${event.location} on $formattedDate')
+                ShareParams(
+                  text:
+                      'Check out this event: ${widget.event.title} - ${widget.event.location} on $formattedDate',
+                ),
               );
             },
           ),
           IconButton(
             icon: const Icon(Icons.favorite_border),
             onPressed: () {
-              favController.toggleFavorite(event.id);
+              FavoriteController favController = Get.put(FavoriteController());
+              favController.toggleFavorite(widget.event.id);
             },
           ),
         ],
@@ -48,12 +62,15 @@ class EventDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
-              tag: 'event-${event.id}', // Unique tag for Hero animation
-              child: EventImage(event: event,),
+              tag: 'event-${widget.event.id}',
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: EventImage(event: widget.event),
+              ),
             ),
             Gutter(),
             Text(
-              event.title!,
+              widget.event.title!,
               style: theme.textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -73,23 +90,23 @@ class EventDetailsScreen extends StatelessWidget {
                 Gutter(),
                 InkWell(
                   onTap: () async {
-                    final url =
-                        'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(event.location!)}';
-                    if (await canLaunchUrl(Uri.parse(url))) {
-                      await launchUrl(Uri.parse(url));
-                    } else {
+                    try {
+                      final url =
+                          'https://maps.google.com/?q=${Uri.encodeComponent(widget.event.location!)}';
+                      await launchUrl(
+                        Uri.parse(url),
+                        mode: LaunchMode.externalApplication,
+                      );
+                    } catch (e) {
                       Get.snackbar(
                         'Error',
-                        'Could not open map.',
+                        'Could not open map: $e',
                         snackPosition: SnackPosition.BOTTOM,
                       );
                     }
                   },
-                  child: Text(
-                    event.location!,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.primary,
-                    ),
+                  child: Image.network(
+                    'https://maps.googleapis.com/maps/api/staticmap?center=${Uri.encodeComponent(widget.event.location!)}&zoom=13&size=300x150&markers=${Uri.encodeComponent(widget.event.location!)}&key=AIzaSyAqDvJa0q_XJIT5HE7PR7CC4m_jtaq7a1E',
                   ),
                 ),
               ],
@@ -102,8 +119,43 @@ class EventDetailsScreen extends StatelessWidget {
               ),
             ),
             Gutter(),
-            Text(event.description!, style: theme.textTheme.bodyMedium),
+            Text(widget.event.description!, style: theme.textTheme.bodyMedium),
             Gutter(),
+            // ✅ Booking Button
+            SizedBox(
+              width: double.infinity,
+              child: BookingButton(
+                label: isBooked ? 'Cancel Booking' : 'Book Now',
+                icon: isBooked ? Icons.cancel : Icons.event_available,
+                backgroundColor:
+                    isBooked ? Colors.red : theme.colorScheme.primary,
+                onPressed: () async {
+                  if (!isBooked) {
+                    final result = await Get.to(
+                      () => BookingConfirmationScreen(event: widget.event),
+                    );
+
+                    if (result == true) {
+                      setState(() {
+                        isBooked = true;
+                      });
+                    }
+                  } else {
+                    setState(() {
+                      isBooked = false;
+                    });
+                    showCustomSnackBar(context, 'You cancelled your booking.');
+                  }
+                },
+              ),
+            ),
+            Gutter(),
+            SizedBox(
+              width: double.infinity,
+              child: AddToCalendarButton(event: widget.event),
+            ),
+            Gutter(),
+
           ],
         ),
       ),

@@ -81,7 +81,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 events: filteredEvents,
                 eventsFavorite: favController.favoriteEvents,
                 onFavoriteToggle: favController.toggleFavorite,
-                onEventTap: _navigateToEventDetails, // تمرير دالة الانتقال
+                onEventTap: _navigateToEventDetails,
               ),
             ),
           ],

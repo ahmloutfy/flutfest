@@ -9,14 +9,14 @@ class EventCard extends StatefulWidget {
   final List<Event>? events;
   final Map<int, bool>? eventsFavorite;
   final void Function(int)? onFavoriteToggle;
-  final void Function(Event)? onEventTap; // إضافة دالة لمعالجة النقر على الفعالية
+  final void Function(Event)? onEventTap;
 
   const EventCard({
     super.key,
     required this.events,
     this.eventsFavorite,
     this.onFavoriteToggle,
-    this.onEventTap, // إضافة المعامل في الكونستركتور
+    this.onEventTap,
   });
 
   @override
@@ -44,7 +44,12 @@ class _EventCardState extends State<EventCard> {
                 children: [
                   Hero(
                     tag: 'event-${event.id}',
-                    child: EventImage(event: event),
+                    child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12),
+                        ),
+                        child: EventImage(event: event, imageHeight: 150,), ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
