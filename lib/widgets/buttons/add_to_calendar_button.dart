@@ -9,7 +9,8 @@ class AddToCalendarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return ElevatedButton.icon(
+      icon: Icon(Icons.edit_calendar),
       onPressed: () {
         final add2cal.Event calendarEvent = add2cal.Event(
           title: event.title ?? '',
@@ -20,7 +21,7 @@ class AddToCalendarButton extends StatelessWidget {
         );
         add2cal.Add2Calendar.addEvent2Cal(calendarEvent);
       },
-      child: const Text('Add to Calendar'),
+      label: const Text('Add to Calendar'),
     );
   }
 }

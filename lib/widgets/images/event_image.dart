@@ -13,6 +13,7 @@ class EventImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
+      width: double.infinity,
       alignment: Alignment(0, -0.3),
       '${event.image}',
       fit: BoxFit.cover,

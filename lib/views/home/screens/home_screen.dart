@@ -3,6 +3,7 @@ import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/logic/controllers/favorite_controller.dart';
 import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutfest/views/accounts/account_screen.dart';
+import 'package:flutfest/views/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../events/my_events_screen.dart';
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-
+Get.to(() => const SearchScreen(),);
               showCustomSnackBar(context, 'Search for events');
             },
           ),

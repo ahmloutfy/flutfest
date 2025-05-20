@@ -1,3 +1,4 @@
+import 'package:flutfest/core/utils/dummy_events.dart';
 import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutfest/views/details/event_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,26 +12,30 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
-  late Event event;
-  List<Map<String, String>> notifications = [
+  List<Map<String, dynamic>> notifications = [
     {
       'title': 'Upcoming Event Reminder',
-      'message': 'The "Music Concert" event will start tomorrow at 8:00 PM.',
+      'message': 'The event will start tomorrow at 8:00 PM.',
       'time': '5 minutes ago',
+      'eventId': 6, // Music Concert
     },
     {
       'title': 'Booking Status Updated',
-      'message':
-      'Your VIP ticket booking for the "Art Exhibition" event has been confirmed.',
+      'message': 'Your VIP ticket booking has been confirmed.',
       'time': '30 minutes ago',
+      'eventId': 9, // Art Exhibition
     },
     {
       'title': 'Important Announcement',
-      'message':
-      'The registration period for the "Cultural Festival" has been extended until the end of the week.',
+      'message': 'The registration period has been extended until the end of the week.',
       'time': '1 hour ago',
+      'eventId': 7, // Cultural Festival
     },
   ];
+
+  Event getEventById(int id) {
+    return DummyEvents.events.firstWhere((event) => event.id == id);
+  }
 
   void _refreshNotifications() {
     setState(() {
@@ -105,14 +110,16 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         separatorBuilder: (_, __) => const Divider(),
         itemBuilder: (context, index) {
           final notification = notifications[index];
-          return  _buildNotificationItem(
+          return _buildNotificationItem(
             context,
-            title: notification['title']!,
-            message: notification['message']!,
-            time: notification['time']!,
+            title: notification['title'],
+            message: notification['message'],
+            time: notification['time'],
             icon: Icons.event_note,
             onTap: () {
-              Get.to(() => EventDetailsScreen(event: event),);
+              Get.to(() => EventDetailsScreen(
+                event: getEventById(notification['eventId']),
+              ));
             },
           );
         },
@@ -126,7 +133,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         required String message,
         required String time,
         IconData? icon,
-        final Function()? onTap
+        final Function()? onTap,
       }) {
     return InkWell(
       onTap: onTap,
@@ -136,7 +143,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(icon ?? Icons.notifications_active,
-                size: Get.width * 0.06, color: Theme.of(context).colorScheme.primary),
+                size: Get.width * 0.06,
+                color: Theme.of(context).colorScheme.primary),
             SizedBox(width: Get.width * 0.04),
             Expanded(
               child: Column(

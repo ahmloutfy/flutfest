@@ -18,7 +18,7 @@ class HomeTabScreen extends StatefulWidget {
 
 class _HomeTabScreenState extends State<HomeTabScreen> {
   String selectedTab = 'All';
-  FavoriteController favController = Get.put(FavoriteController());
+  final FavoriteController favController = Get.put(FavoriteController());
 
   List<Event> get filteredEvents {
     final now = DateTime.now();
@@ -33,7 +33,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
         case 'Expired':
           return eventDate.isBefore(now) && (event.isUpcomingForDemo != true);
         case 'Favorites':
-          return favController.favoriteEvents[event.id] == true;
+          return favController.favoriteEvents.containsKey(event.id) && favController.favoriteEvents[event.id]!;
         default:
           return true;
       }
@@ -41,7 +41,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   }
 
   void _navigateToEventDetails(Event event) {
-    Get.to(() => EventDetailsScreen(event: event),);
+    Get.to(() => EventDetailsScreen(event: event));
   }
 
   @override
@@ -79,8 +79,6 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
             Expanded(
               child: EventCard(
                 events: filteredEvents,
-                eventsFavorite: favController.favoriteEvents,
-                onFavoriteToggle: favController.toggleFavorite,
                 onEventTap: _navigateToEventDetails,
               ),
             ),

@@ -35,26 +35,6 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.event.title ?? 'Event details'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.share),
-            onPressed: () {
-              SharePlus.instance.share(
-                ShareParams(
-                  text:
-                      'Check out this event: ${widget.event.title} - ${widget.event.location} on $formattedDate',
-                ),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.favorite_border),
-            onPressed: () {
-              FavoriteController favController = Get.put(FavoriteController());
-              favController.toggleFavorite(widget.event.id);
-            },
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -65,7 +45,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
               tag: 'event-${widget.event.id}',
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: EventImage(event: widget.event),
+                child: EventImage(event: widget.event, imageHeight: 300,),
               ),
             ),
             Gutter(),
@@ -121,41 +101,73 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
             Gutter(),
             Text(widget.event.description!, style: theme.textTheme.bodyMedium),
             Gutter(),
-            // ✅ Booking Button
-            SizedBox(
-              width: double.infinity,
-              child: BookingButton(
-                label: isBooked ? 'Cancel Booking' : 'Book Now',
-                icon: isBooked ? Icons.cancel : Icons.event_available,
-                backgroundColor:
+            Row(
+              children: [
+                Expanded(
+                  child: BookingButton(
+                    label: isBooked ? 'Cancel Booking' : 'Book Now',
+                    icon: isBooked ? Icons.cancel : Icons.event_available,
+                    backgroundColor:
                     isBooked ? Colors.red : theme.colorScheme.primary,
-                onPressed: () async {
-                  if (!isBooked) {
-                    final result = await Get.to(
-                      () => BookingConfirmationScreen(event: widget.event),
-                    );
+                    onPressed: () async {
+                      if (!isBooked) {
+                        final result = await Get.to(
+                              () => BookingConfirmationScreen(event: widget.event),
+                        );
 
-                    if (result == true) {
-                      setState(() {
-                        isBooked = true;
-                      });
-                    }
-                  } else {
-                    setState(() {
-                      isBooked = false;
-                    });
-                    showCustomSnackBar(context, 'You cancelled your booking.');
-                  }
-                },
-              ),
+                        if (result == true) {
+                          setState(() {
+                            isBooked = true;
+                          });
+                        }
+                      } else {
+                        setState(() {
+                          isBooked = false;
+                        });
+                        showCustomSnackBar(context, 'You cancelled your booking.');
+                      }
+                    },
+                  ),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: AddToCalendarButton(event: widget.event),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.find<FavoriteController>().toggleFavorite(widget.event.id);
+                    },
+                    child: GetBuilder<FavoriteController>(
+                      init: FavoriteController(),
+                      builder: (favController) {
+                        return Icon(
+                          favController.isFavorite(widget.event.id)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      SharePlus.instance.share(
+                        ShareParams(
+                          text:
+                          'Check out this event: ${widget.event.title} - ${widget.event.location} on $formattedDate',
+                        ),
+                      );
+                    },
+                    child: const Icon(Icons.share),
+                  ),
+                ),
+              ],
             ),
             Gutter(),
-            SizedBox(
-              width: double.infinity,
-              child: AddToCalendarButton(event: widget.event),
-            ),
-            Gutter(),
-
           ],
         ),
       ),
