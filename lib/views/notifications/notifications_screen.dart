@@ -27,7 +27,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     },
     {
       'title': 'Important Announcement',
-      'message': 'The registration period has been extended until the end of the week.',
+      'message':
+          'The registration period has been extended until the end of the week.',
       'time': '1 hour ago',
       'eventId': 7, // Cultural Festival
     },
@@ -51,10 +52,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Notifications',
-          style: theme.textTheme.headlineSmall,
-        ),
+        title: Text('Notifications', style: theme.textTheme.headlineSmall),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -63,78 +61,86 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           ),
         ],
       ),
-      body: notifications.isEmpty
-          ? Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.notifications_off,
-                  size: 80, color: Colors.grey.shade400),
-              const SizedBox(height: 16),
-              Text(
-                'You\'re all caught up!',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'No new notifications at the moment.',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.grey,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.home),
-                label: const Text('Back to Home'),
-                onPressed: () => Navigator.of(context).pop(),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+      body:
+          notifications.isEmpty
+              ? Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.notifications_off,
+                        size: 80,
+                        color: Colors.grey.shade400,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'You\'re all caught up!',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'No new notifications at the moment.',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 24),
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.home),
+                        label: const Text('Back to Home'),
+                        onPressed: () => Navigator.of(context).pop(),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+              )
+              : ListView.separated(
+                padding: const EdgeInsets.all(16),
+                itemCount: notifications.length,
+                separatorBuilder: (_, __) => const Divider(),
+                itemBuilder: (context, index) {
+                  final notification = notifications[index];
+                  return _buildNotificationItem(
+                    context,
+                    title: notification['title'],
+                    message: notification['message'],
+                    time: notification['time'],
+                    icon: Icons.event_note,
+                    onTap: () {
+                      Get.to(
+                        () => EventDetailsScreen(
+                          event: getEventById(notification['eventId']),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
-            ],
-          ),
-        ),
-      )
-          : ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemCount: notifications.length,
-        separatorBuilder: (_, __) => const Divider(),
-        itemBuilder: (context, index) {
-          final notification = notifications[index];
-          return _buildNotificationItem(
-            context,
-            title: notification['title'],
-            message: notification['message'],
-            time: notification['time'],
-            icon: Icons.event_note,
-            onTap: () {
-              Get.to(() => EventDetailsScreen(
-                event: getEventById(notification['eventId']),
-              ));
-            },
-          );
-        },
-      ),
     );
   }
 
   Widget _buildNotificationItem(
-      BuildContext context, {
-        required String title,
-        required String message,
-        required String time,
-        IconData? icon,
-        final Function()? onTap,
-      }) {
+    BuildContext context, {
+    required String title,
+    required String message,
+    required String time,
+    IconData? icon,
+    final Function()? onTap,
+  }) {
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -142,9 +148,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon ?? Icons.notifications_active,
-                size: Get.width * 0.06,
-                color: Theme.of(context).colorScheme.primary),
+            Icon(
+              icon ?? Icons.notifications_active,
+              size: Get.width * 0.06,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             SizedBox(width: Get.width * 0.04),
             Expanded(
               child: Column(
@@ -161,10 +169,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     message,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontSize: Get.width * 0.035,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.8),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.8),
                     ),
                   ),
                   SizedBox(height: Get.height * 0.01),

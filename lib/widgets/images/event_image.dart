@@ -2,10 +2,7 @@ import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutter/material.dart';
 
 class EventImage extends StatelessWidget {
-  const EventImage({
-    super.key,
-    required this.event,  this.imageHeight,
-  });
+  const EventImage({super.key, required this.event, this.imageHeight});
 
   final Event event;
   final double? imageHeight;

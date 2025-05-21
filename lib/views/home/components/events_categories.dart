@@ -30,11 +30,14 @@ class EventsCategories extends StatelessWidget {
   Widget _buildTab(String title, BuildContext context) {
     final bool isSelected = title == selectedTab;
     final bool isDark = AppTheme.isDarkMode(context);
-    final Color selectedButtonColor = isDark ? AppTheme.darkButtonColor : AppTheme.lightButtonColor;
-    final Color selectedTextColor = isDark ? AppTheme.darkTextColor : AppTheme.lightTextColor;
+    final Color selectedButtonColor =
+        isDark ? AppTheme.darkButtonColor : AppTheme.lightButtonColor;
+    final Color selectedTextColor =
+        isDark ? AppTheme.darkTextColor : AppTheme.lightTextColor;
 
     final Color unselectedButtonColor = Colors.transparent;
-    final Color unselectedTextColor = isDark ? AppTheme.darkTextColor : AppTheme.lightTextColor;
+    final Color unselectedTextColor =
+        isDark ? AppTheme.darkTextColor : AppTheme.lightTextColor;
 
     return Container(
       margin: EdgeInsets.all(8),
@@ -42,7 +45,8 @@ class EventsCategories extends StatelessWidget {
         onPressed: () => onTabSelected(title),
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          backgroundColor: isSelected ? selectedButtonColor : unselectedButtonColor,
+          backgroundColor:
+              isSelected ? selectedButtonColor : unselectedButtonColor,
           foregroundColor: isSelected ? selectedTextColor : unselectedTextColor,
           side: BorderSide(color: selectedButtonColor),
           shape: RoundedRectangleBorder(

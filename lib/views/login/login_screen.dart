@@ -1,7 +1,7 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/theme.dart';
-import 'package:flutfest/widgets/buttons/primary_button.dart';
 import 'package:flutfest/widgets/backgrounds/intro_background.dart';
+import 'package:flutfest/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -166,9 +166,8 @@ class LoginScreen extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             Get.toNamed('/register');
-
                           },
-                          child:  Text(
+                          child: Text(
                             'Register',
                             style: TextStyle(
                               shadows: [
@@ -178,7 +177,8 @@ class LoginScreen extends StatelessWidget {
                                   offset: Offset(0, 1),
                                 ),
                               ],
-                            ),                           ),
+                            ),
+                          ),
                         ),
                       ],
                     ),

@@ -113,32 +113,33 @@ class ThemeHelper {
 
   // Method to get the text style for AppBar based on the brightness mode
   static TextStyle getAppBarTextStyle(BuildContext context) {
-    return Theme.of(context).textTheme.titleLarge!.copyWith(
-      color: getAppBarTextColor(context),
-    );
+    return Theme.of(
+      context,
+    ).textTheme.titleLarge!.copyWith(color: getAppBarTextColor(context));
   }
 
   // Method to get the button style for ElevatedButton based on the brightness mode
   static ButtonStyle getElevatedButtonStyle(BuildContext context) {
     return ElevatedButton.styleFrom(
-      foregroundColor: getTextColor(context), backgroundColor: getButtonColor(context),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      foregroundColor: getTextColor(context),
+      backgroundColor: getButtonColor(context),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
   }
 
   // Method to get the button style for TextButton based on the brightness mode
   static ButtonStyle getTextButtonStyle(BuildContext context) {
     return TextButton.styleFrom(
-      foregroundColor: getButtonColor(context), disabledForegroundColor: getTextColor(context).withValues(alpha: 0.38),
+      foregroundColor: getButtonColor(context),
+      disabledForegroundColor: getTextColor(context).withValues(alpha: 0.38),
     );
   }
 
   // Method to get the button style for OutlinedButton based on the brightness mode
   static ButtonStyle getOutlinedButtonStyle(BuildContext context) {
     return OutlinedButton.styleFrom(
-      foregroundColor: getButtonColor(context), side: BorderSide(color: getButtonColor(context)),
+      foregroundColor: getButtonColor(context),
+      side: BorderSide(color: getButtonColor(context)),
     );
   }
 
@@ -152,14 +153,17 @@ class ThemeHelper {
   // Method to get the color for Checkbox based on the brightness mode
   static Color? getCheckboxColor(BuildContext context) {
     return getBrightness(context) == Brightness.dark
-        ? Theme.of(context).checkboxTheme.fillColor!.resolve({WidgetState.selected})
-        : Theme.of(context).checkboxTheme.fillColor!.resolve({WidgetState.selected , WidgetState.disabled});
+        ? Theme.of(
+          context,
+        ).checkboxTheme.fillColor!.resolve({WidgetState.selected})
+        : Theme.of(context).checkboxTheme.fillColor!.resolve({
+          WidgetState.selected,
+          WidgetState.disabled,
+        });
   }
 
   // Method to get the IconTheme for icons based on the brightness mode
   static IconThemeData getIconTheme(BuildContext context) {
-    return IconThemeData(
-      color: getIconColor(context),
-    );
+    return IconThemeData(color: getIconColor(context));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
-import 'package:flutfest/widgets/buttons/primary_button.dart';
 import 'package:flutfest/widgets/backgrounds/intro_background.dart';
+import 'package:flutfest/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -79,7 +79,8 @@ class WelcomeScreen extends StatelessWidget {
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      side: BorderSide(color: Colors.white),),
+                      side: BorderSide(color: Colors.white),
+                    ),
                     child: const Text('Register'),
                     onPressed: () {
                       // Transition to Register screen using GetX

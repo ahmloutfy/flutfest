@@ -1,14 +1,15 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
-import 'package:flutfest/logic/controllers/favorite_controller.dart';
 import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutfest/widgets/buttons/add_to_calendar_button.dart';
 import 'package:flutfest/widgets/buttons/booking_button.dart';
+import 'package:flutfest/widgets/buttons/favorite_button.dart';
+import 'package:flutfest/widgets/buttons/share_button.dart';
+import 'package:flutfest/widgets/custom_appbar.dart';
 import 'package:flutfest/widgets/images/event_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../booking/booking_confirmation_screen.dart';
@@ -33,9 +34,9 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     ).format(DateTime.parse(widget.event.date!));
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.event.title ?? 'Event details'),
+      appBar: customAppBar(context , widget.event.title ?? 'Event details' ,textStyle: TextStyle(fontSize: 18),
       ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -45,7 +46,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
               tag: 'event-${widget.event.id}',
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: EventImage(event: widget.event, imageHeight: 300,),
+                child: EventImage(event: widget.event, imageHeight: 300),
               ),
             ),
             Gutter(),
@@ -101,72 +102,44 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
             Gutter(),
             Text(widget.event.description!, style: theme.textTheme.bodyMedium),
             Gutter(),
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  child: BookingButton(
-                    label: isBooked ? 'Cancel Booking' : 'Book Now',
-                    icon: isBooked ? Icons.cancel : Icons.event_available,
-                    backgroundColor:
-                    isBooked ? Colors.red : theme.colorScheme.primary,
-                    onPressed: () async {
-                      if (!isBooked) {
-                        final result = await Get.to(
-                              () => BookingConfirmationScreen(event: widget.event),
-                        );
-
-                        if (result == true) {
-                          setState(() {
-                            isBooked = true;
-                          });
-                        }
-                      } else {
-                        setState(() {
-                          isBooked = false;
-                        });
-                        showCustomSnackBar(context, 'You cancelled your booking.');
-                      }
-                    },
-                  ),
-                ),
-                SizedBox(width: 8),
-                Expanded(
-                  child: AddToCalendarButton(event: widget.event),
-                ),
-                SizedBox(width: 8),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.find<FavoriteController>().toggleFavorite(widget.event.id);
-                    },
-                    child: GetBuilder<FavoriteController>(
-                      init: FavoriteController(),
-                      builder: (favController) {
-                        return Icon(
-                          favController.isFavorite(widget.event.id)
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      SharePlus.instance.share(
-                        ShareParams(
-                          text:
-                          'Check out this event: ${widget.event.title} - ${widget.event.location} on $formattedDate',
-                        ),
+                BookingButton(
+                  label: isBooked ? 'Cancel Booking' : 'Book Now',
+                  icon: isBooked ? Icons.cancel : Icons.event_available,
+                  backgroundColor:
+                      isBooked ? Colors.red : theme.colorScheme.primary,
+                  onPressed: () async {
+                    if (!isBooked) {
+                      final result = await Get.to(
+                        () => BookingConfirmationScreen(event: widget.event),
                       );
-                    },
-                    child: const Icon(Icons.share),
-                  ),
+                      if (result == true) {
+                        setState(() {
+                          isBooked = true;
+                        });
+                      }
+                    } else {
+                      setState(() {
+                        isBooked = false;
+                      });
+                      showCustomSnackBar(
+                        context,
+                        'You cancelled your booking.',
+                      );
+                    }
+                  },
                 ),
+                const SizedBox(height: 12),
+                AddToCalendarButton(event: widget.event),
+                const SizedBox(height: 12),
+                FavoriteButton(widget: widget),
+                const SizedBox(height: 12),
+                ShareButton(widget: widget, formattedDate: formattedDate),
               ],
             ),
+
             Gutter(),
           ],
         ),

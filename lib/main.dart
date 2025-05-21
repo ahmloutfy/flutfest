@@ -5,13 +5,8 @@ import 'package:flutfest/views/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-
 void main() {
-  runApp(DevicePreview(
-
-    enabled: false,
-
-    builder: (context) => const FlutFest(),),);
+  runApp(DevicePreview(enabled: false, builder: (context) => const FlutFest()));
 }
 
 class FlutFest extends StatelessWidget {

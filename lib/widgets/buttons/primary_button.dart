@@ -20,8 +20,9 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-
-          backgroundColor: backgroundColor , foregroundColor: textColor),
+        backgroundColor: backgroundColor,
+        foregroundColor: textColor,
+      ),
       onPressed: onPressed,
       child:
           icon == null

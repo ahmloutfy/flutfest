@@ -1,11 +1,11 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
-import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
-import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/backgrounds/intro_background.dart';
+import '../../widgets/buttons/primary_button.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -153,7 +153,8 @@ class RegisterScreen extends StatelessWidget {
                                   offset: Offset(0, 1),
                                 ),
                               ],
-                            ),                          ),
+                            ),
+                          ),
                         ),
                       ],
                     ),

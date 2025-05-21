@@ -17,7 +17,7 @@ class AddToCalendarButton extends StatelessWidget {
           description: event.description ?? '',
           location: event.location ?? '',
           startDate: DateTime.parse(event.date!),
-          endDate: DateTime.parse(event.date!).add(const Duration(hours: 2),),
+          endDate: DateTime.parse(event.date!).add(const Duration(hours: 2)),
         );
         add2cal.Add2Calendar.addEvent2Cal(calendarEvent);
       },

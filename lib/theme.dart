@@ -10,7 +10,6 @@ class AppTheme {
   // 📂 Base Directory for Event Images
   static const String eventDirectory = 'assets/images/events/';
 
-
   // ☀️ Light Mode Colors
   static const Color lightTextColor = Color(0xFF333333);
   static const Color lightButtonColor = Color(0xFFF4A100);
@@ -76,13 +75,19 @@ class AppTheme {
     scaffoldBackgroundColor: lightBackgroundColor,
     textTheme: TextTheme(
       headlineLarge: GoogleFonts.montserrat(
-        fontSize: 32, fontWeight: FontWeight.bold, color: lightTextColor,
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+        color: lightTextColor,
       ),
       headlineMedium: GoogleFonts.montserrat(
-        fontSize: 24, fontWeight: FontWeight.w600, color: lightTextColor,
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        color: lightTextColor,
       ),
       headlineSmall: GoogleFonts.montserrat(
-        fontSize: 20, fontWeight: FontWeight.w500, color: lightTextColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: lightTextColor,
       ),
       bodyLarge: GoogleFonts.roboto(fontSize: 18, color: lightTextColor),
       bodyMedium: GoogleFonts.roboto(fontSize: 16, color: lightTextColor),
@@ -92,16 +97,22 @@ class AppTheme {
       style: OutlinedButton.styleFrom(
         foregroundColor: lightTextColor,
         side: BorderSide(color: lightBorderColor),
-        textStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),),
+        textStyle: GoogleFonts.montserrat(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: lightButtonColor,
         foregroundColor: lightButtonTextColor,
-        textStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),),
+        textStyle: GoogleFonts.montserrat(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         shadowColor: lightShadowColor,
       ),
     ),
@@ -119,10 +130,7 @@ class AppTheme {
         borderRadius: BorderRadius.circular(8),
       ),
     ),
-    dividerTheme: DividerThemeData(
-      color: lightDividerColor,
-      thickness: 1,
-    ),
+    dividerTheme: DividerThemeData(color: lightDividerColor, thickness: 1),
     cardTheme: CardTheme(
       color: lightEventCardBackgroundColor,
       shadowColor: lightShadowColor,
@@ -135,7 +143,10 @@ class AppTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: lightLinkColor,
-        textStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w500),
+        textStyle: GoogleFonts.montserrat(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     ),
 
@@ -144,26 +155,40 @@ class AppTheme {
         color: lightButtonColor, // Active tabular background color
         borderRadius: BorderRadius.circular(8),
       ),
-      labelColor: lightButtonTextColor, // The active tabular text color
-      unselectedLabelColor: lightTextColor.withValues(alpha: 0.6), // Inactive tab text color
-      labelStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600), // Elevated Button
-      unselectedLabelStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w500),
+      labelColor: lightButtonTextColor,
+      // The active tabular text color
+      unselectedLabelColor: lightTextColor.withValues(alpha: 0.6),
+      // Inactive tab text color
+      labelStyle: GoogleFonts.montserrat(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
+      // Elevated Button
+      unselectedLabelStyle: GoogleFonts.montserrat(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: lightBackgroundColor,
       selectedItemColor: lightButtonColor,
       unselectedItemColor: lightTextColor.withValues(alpha: 0.6),
-      selectedLabelStyle: GoogleFonts.montserrat(fontSize: 12, fontWeight: FontWeight.w600),
-      unselectedLabelStyle: GoogleFonts.montserrat(fontSize: 12, fontWeight: FontWeight.w500),
+      selectedLabelStyle: GoogleFonts.montserrat(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+      ),
+      unselectedLabelStyle: GoogleFonts.montserrat(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+      ),
     ),
-    iconTheme: const IconThemeData(
-      color: lightButtonColor,
-      size: 24.0,
-    ),
+    iconTheme: const IconThemeData(color: lightButtonColor, size: 24.0),
     iconButtonTheme: IconButtonThemeData(
       style: ButtonStyle(
         iconColor: WidgetStateProperty.all<Color>(lightButtonColor),
-        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(8.0),),
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+          EdgeInsets.all(8.0),
+        ),
       ),
     ),
   );
@@ -181,15 +206,20 @@ class AppTheme {
 
     scaffoldBackgroundColor: darkBackgroundColor,
     textTheme: TextTheme(
-
       headlineLarge: GoogleFonts.montserrat(
-        fontSize: 32, fontWeight: FontWeight.bold, color: darkTextColor,
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+        color: darkTextColor,
       ),
       headlineMedium: GoogleFonts.montserrat(
-        fontSize: 24, fontWeight: FontWeight.w600, color: darkTextColor,
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        color: darkTextColor,
       ),
       headlineSmall: GoogleFonts.montserrat(
-        fontSize: 20, fontWeight: FontWeight.w500, color: darkTextColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: darkTextColor,
       ),
       bodyLarge: GoogleFonts.roboto(fontSize: 18, color: darkTextColor),
       bodyMedium: GoogleFonts.roboto(fontSize: 16, color: darkTextColor),
@@ -199,7 +229,10 @@ class AppTheme {
       style: OutlinedButton.styleFrom(
         foregroundColor: darkTextColor,
         side: BorderSide(color: darkBorderColor),
-        textStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600),
+        textStyle: GoogleFonts.montserrat(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     ),
@@ -207,7 +240,10 @@ class AppTheme {
       style: ElevatedButton.styleFrom(
         backgroundColor: darkButtonColor,
         foregroundColor: darkButtonTextColor,
-        textStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600),
+        textStyle: GoogleFonts.montserrat(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         shadowColor: darkShadowColor,
       ),
@@ -226,10 +262,7 @@ class AppTheme {
         borderRadius: BorderRadius.circular(8),
       ),
     ),
-    dividerTheme: DividerThemeData(
-      color: darkDividerColor,
-      thickness: 1,
-    ),
+    dividerTheme: DividerThemeData(color: darkDividerColor, thickness: 1),
     cardTheme: CardTheme(
       color: darkEventCardBackgroundColor,
       shadowColor: darkShadowColor,
@@ -242,7 +275,10 @@ class AppTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: darkLinkColor,
-        textStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w500),
+        textStyle: GoogleFonts.montserrat(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     ),
     tabBarTheme: TabBarTheme(
@@ -250,26 +286,39 @@ class AppTheme {
         color: darkButtonColor, // Active tabular background color
         borderRadius: BorderRadius.circular(8), //  Elevated Button
       ),
-      labelColor: darkButtonTextColor, // The active tabular text color
-      unselectedLabelColor: darkTextColor.withValues(alpha: 0.6), // Inactive tab text color
-      labelStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600),
-      unselectedLabelStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w500),
+      labelColor: darkButtonTextColor,
+      // The active tabular text color
+      unselectedLabelColor: darkTextColor.withValues(alpha: 0.6),
+      // Inactive tab text color
+      labelStyle: GoogleFonts.montserrat(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
+      unselectedLabelStyle: GoogleFonts.montserrat(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: darkBackgroundColor,
       selectedItemColor: darkButtonColor,
       unselectedItemColor: darkTextColor.withValues(alpha: 0.6),
-      selectedLabelStyle: GoogleFonts.montserrat(fontSize: 12, fontWeight: FontWeight.w600),
-      unselectedLabelStyle: GoogleFonts.montserrat(fontSize: 12, fontWeight: FontWeight.w500),
+      selectedLabelStyle: GoogleFonts.montserrat(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+      ),
+      unselectedLabelStyle: GoogleFonts.montserrat(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+      ),
     ),
-    iconTheme: const IconThemeData(
-      color: darkButtonColor,
-      size: 24.0,
-    ),
+    iconTheme: const IconThemeData(color: darkButtonColor, size: 24.0),
     iconButtonTheme: IconButtonThemeData(
       style: ButtonStyle(
         iconColor: WidgetStateProperty.all<Color>(darkButtonColor),
-        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(8.0),),
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+          EdgeInsets.all(8.0),
+        ),
       ),
     ),
   );

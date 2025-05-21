@@ -18,15 +18,12 @@ class BookingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       width: fullWidth ? double.infinity : null,
       child: ElevatedButton.icon(
         onPressed: onPressed,
         icon: Icon(icon),
-        label: Text(
-          label,
-        ),
+        label: Text(label),
       ),
     );
   }

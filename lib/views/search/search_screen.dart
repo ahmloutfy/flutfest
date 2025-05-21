@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutfest/theme.dart';
+import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -39,10 +39,7 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-          ],
-        ),
+        child: Column(children: []),
       ),
     );
   }

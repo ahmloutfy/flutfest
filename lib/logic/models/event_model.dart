@@ -1,6 +1,6 @@
 class Event {
   final int id;
-  final String? title , date , description , location , image;
+  final String? title, date, description, location, image;
   bool isUpcomingForDemo;
 
   Event({
@@ -9,6 +9,7 @@ class Event {
     required this.title,
     required this.date,
     required this.location,
-    required this.image, required this.description ,
+    required this.image,
+    required this.description,
   });
 }

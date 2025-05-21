@@ -1,9 +1,9 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/logic/controllers/favorite_controller.dart';
 import 'package:flutfest/views/details/event_details_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:flutfest/views/home/components/event_card.dart';
 import 'package:flutfest/views/home/components/events_categories.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/utils/dummy_events.dart';
@@ -33,7 +33,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
         case 'Expired':
           return eventDate.isBefore(now) && (event.isUpcomingForDemo != true);
         case 'Favorites':
-          return favController.favoriteEvents.containsKey(event.id) && favController.favoriteEvents[event.id]!;
+          return favController.favoriteEvents.containsKey(event.id) &&
+              favController.favoriteEvents[event.id]!;
         default:
           return true;
       }
@@ -53,28 +54,29 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
           children: [
             SizedBox(
               width: double.infinity,
-              child: isTablet
-                  ? SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: EventsCategories(
-                  selectedTab: selectedTab,
-                  onTabSelected: (tab) {
-                    setState(() {
-                      selectedTab = tab;
-                    });
-                    showCustomSnackBar(context, '$tab events');
-                  },
-                ),
-              )
-                  : EventsCategories(
-                selectedTab: selectedTab,
-                onTabSelected: (tab) {
-                  setState(() {
-                    selectedTab = tab;
-                  });
-                  showCustomSnackBar(context, '$tab events');
-                },
-              ),
+              child:
+                  isTablet
+                      ? SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: EventsCategories(
+                          selectedTab: selectedTab,
+                          onTabSelected: (tab) {
+                            setState(() {
+                              selectedTab = tab;
+                            });
+                            showCustomSnackBar(context, '$tab events');
+                          },
+                        ),
+                      )
+                      : EventsCategories(
+                        selectedTab: selectedTab,
+                        onTabSelected: (tab) {
+                          setState(() {
+                            selectedTab = tab;
+                          });
+                          showCustomSnackBar(context, '$tab events');
+                        },
+                      ),
             ),
             Expanded(
               child: EventCard(

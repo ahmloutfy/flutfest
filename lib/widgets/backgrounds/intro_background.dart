@@ -2,9 +2,7 @@ import 'package:flutfest/theme.dart';
 import 'package:flutter/material.dart';
 
 class IntroBackground extends StatelessWidget {
-  const IntroBackground({
-    super.key, required this.child,
-  });
+  const IntroBackground({super.key, required this.child});
 
   final Widget child;
 
