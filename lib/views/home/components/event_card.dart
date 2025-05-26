@@ -17,7 +17,7 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FavoriteController favoriteController =
-        Get.find(); // البحث عن الكنترولر
+        Get.find();
 
     return ListView.builder(
       itemCount: events!.length,
@@ -95,7 +95,6 @@ class EventCard extends StatelessWidget {
                               },
                             ),
                             Obx(
-                              // استخدام Obx لإعادة بناء الـ Widget عند تغيير حالة المفضلة
                               () => IconButton(
                                 color:
                                     favoriteController.favoriteEvents

@@ -131,7 +131,7 @@ class AppTheme {
       ),
     ),
     dividerTheme: DividerThemeData(color: lightDividerColor, thickness: 1),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: lightEventCardBackgroundColor,
       shadowColor: lightShadowColor,
       elevation: 4,
@@ -150,7 +150,7 @@ class AppTheme {
       ),
     ),
 
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       indicator: BoxDecoration(
         color: lightButtonColor, // Active tabular background color
         borderRadius: BorderRadius.circular(8),
@@ -190,6 +190,22 @@ class AppTheme {
           EdgeInsets.all(8.0),
         ),
       ),
+    ),
+    radioTheme: RadioThemeData(
+      fillColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return lightButtonColor;
+        }
+        return lightTextColor.withValues(alpha: 0.6);
+      }),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      fillColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return lightButtonColor;
+        }
+        return lightTextColor.withValues(alpha: 0.6);
+      }),
     ),
   );
 
@@ -263,7 +279,7 @@ class AppTheme {
       ),
     ),
     dividerTheme: DividerThemeData(color: darkDividerColor, thickness: 1),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: darkEventCardBackgroundColor,
       shadowColor: darkShadowColor,
       elevation: 4,
@@ -281,7 +297,7 @@ class AppTheme {
         ),
       ),
     ),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       indicator: BoxDecoration(
         color: darkButtonColor, // Active tabular background color
         borderRadius: BorderRadius.circular(8), //  Elevated Button
@@ -320,6 +336,22 @@ class AppTheme {
           EdgeInsets.all(8.0),
         ),
       ),
+    ),
+    radioTheme: RadioThemeData(
+      fillColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return darkButtonColor;
+        }
+        return darkTextColor.withValues(alpha: 0.6);
+      }),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      fillColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return darkButtonColor;
+        }
+        return darkTextColor.withValues(alpha: 0.6);
+      }),
     ),
   );
 }
