@@ -1,5 +1,7 @@
+import 'package:flutfest/logic/controllers/settings_controller.dart';
 import 'package:flutfest/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EventsCategories extends StatelessWidget {
   final String selectedTab;
@@ -13,31 +15,36 @@ class EventsCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          _buildTab('All', context),
-          _buildTab('Upcoming', context),
-          _buildTab('Expired', context),
-          _buildTab('Favorites', context),
-        ],
-      ),
-    );
+    final SettingsController controller = Get.find<SettingsController>();
+    return Obx(() {
+      final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+      final bool isDark = controller.themeOption.value == ThemeOption.dark ||
+          (controller.themeOption.value == ThemeOption.system && isDarkMode);
+      final Color selectedButtonColor =
+      isDark ? AppTheme.darkButtonColor : AppTheme.lightButtonColor;
+      final Color selectedTextColor =
+      isDark ? AppTheme.darkTextColor : AppTheme.lightTextColor;
+
+      final Color unselectedTextColor =
+      isDark ? AppTheme.darkTextColor : AppTheme.lightTextColor;
+
+      return SizedBox(
+        height: 50,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            _buildTab('All', context, selectedButtonColor, selectedTextColor, unselectedTextColor),
+            _buildTab('Upcoming', context, selectedButtonColor, selectedTextColor, unselectedTextColor),
+            _buildTab('Expired', context, selectedButtonColor, selectedTextColor, unselectedTextColor),
+            _buildTab('Favorites', context, selectedButtonColor, selectedTextColor, unselectedTextColor),
+          ],
+        ),
+      );
+    });
   }
 
-  Widget _buildTab(String title, BuildContext context) {
+  Widget _buildTab(String title, BuildContext context, Color selectedButtonColor, Color selectedTextColor, Color unselectedTextColor) {
     final bool isSelected = title == selectedTab;
-    final bool isDark = AppTheme.isDarkMode(context);
-    final Color selectedButtonColor =
-        isDark ? AppTheme.darkButtonColor : AppTheme.lightButtonColor;
-    final Color selectedTextColor =
-        isDark ? AppTheme.darkTextColor : AppTheme.lightTextColor;
-
-    final Color unselectedButtonColor = Colors.transparent;
-    final Color unselectedTextColor =
-        isDark ? AppTheme.darkTextColor : AppTheme.lightTextColor;
 
     return Container(
       margin: EdgeInsets.all(8),
@@ -46,7 +53,7 @@ class EventsCategories extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           backgroundColor:
-              isSelected ? selectedButtonColor : unselectedButtonColor,
+          isSelected ? selectedButtonColor : Colors.transparent,
           foregroundColor: isSelected ? selectedTextColor : unselectedTextColor,
           side: BorderSide(color: selectedButtonColor),
           shape: RoundedRectangleBorder(
@@ -56,7 +63,6 @@ class EventsCategories extends StatelessWidget {
         child: Text(
           title,
           style: TextStyle(
-            color: isSelected ? selectedTextColor : unselectedTextColor,
             fontWeight: FontWeight.bold,
           ),
         ),

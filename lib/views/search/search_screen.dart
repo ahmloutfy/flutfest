@@ -16,6 +16,7 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: TextField(
+          controller: controller.textController,
           onChanged: controller.search,
           decoration: InputDecoration(
             hintText: 'Search events...',
@@ -25,7 +26,7 @@ class SearchScreen extends StatelessWidget {
               icon: Icon(Icons.clear),
               onPressed: controller.clearSearch,
             )
-                : SizedBox.shrink()),
+                : SizedBox.shrink(),),
           ),
           autofocus: true,
         ),

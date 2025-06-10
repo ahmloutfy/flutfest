@@ -9,14 +9,16 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controller.setContext(context);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: const Text('Settings'),),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Obx(() {
           return ListView(
             children: [
-              const Text('Theme', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const Text('Theme', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
               RadioListTile<ThemeOption>(
                 title: const Text('Light'),
                 value: ThemeOption.light,
@@ -45,6 +47,7 @@ class SettingsScreen extends StatelessWidget {
               const Divider(height: 32),
 
               SwitchListTile(
+
                 title: const Text('Enable Notifications'),
                 value: controller.notificationsEnabled.value,
                 onChanged: (val) => controller.toggleNotifications(val),

@@ -207,6 +207,22 @@ class AppTheme {
         return lightTextColor.withValues(alpha: 0.6);
       }),
     ),
+    switchTheme: SwitchThemeData(
+      trackColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return lightButtonColor.withValues(alpha: 0.5);
+        }
+        return lightTextColor.withValues(alpha: 0.3);
+      }),
+      thumbColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return lightButtonColor;
+        }
+        return lightTextColor.withValues(alpha: 0.6);
+      }),
+    ),
+
+
   );
 
   // 🌙 Dark Theme
@@ -347,6 +363,20 @@ class AppTheme {
     ),
     checkboxTheme: CheckboxThemeData(
       fillColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return darkButtonColor;
+        }
+        return darkTextColor.withValues(alpha: 0.6);
+      }),
+    ),
+    switchTheme: SwitchThemeData(
+      trackColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return darkButtonColor.withValues(alpha: 0.5);
+        }
+        return darkTextColor.withValues(alpha: 0.3);
+      }),
+      thumbColor: WidgetStateProperty.resolveWith<Color>((states) {
         if (states.contains(WidgetState.selected)) {
           return darkButtonColor;
         }

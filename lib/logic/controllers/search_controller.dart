@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/utils/dummy_events.dart';
 import '../models/event_model.dart';
@@ -5,6 +6,7 @@ import '../models/event_model.dart';
 class SearchScreenController extends GetxController {
   var searchQuery = ''.obs;
   var searchResults = <Event>[].obs;
+  final textController = TextEditingController();
 
   void search(String query) {
     searchQuery.value = query;
@@ -24,5 +26,6 @@ class SearchScreenController extends GetxController {
   void clearSearch() {
     searchQuery.value = '';
     searchResults.clear();
+    textController.clear();
   }
 }

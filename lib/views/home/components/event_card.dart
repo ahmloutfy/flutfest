@@ -5,10 +5,11 @@ import 'package:flutfest/theme.dart';
 import 'package:flutfest/widgets/buttons/primary_button.dart';
 import 'package:flutfest/widgets/images/event_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // استيراد Get
+import 'package:get/get.dart'; //
+
 
 class EventCard extends StatelessWidget {
-  // تحويل إلى StatelessWidget لأنه يعتمد على الكنترولر للحالة
+
   final List<Event>? events;
   final void Function(Event)? onEventTap;
 
@@ -53,7 +54,12 @@ class EventCard extends StatelessWidget {
                         Text(
                           '${event.title}',
                           style: Theme.of(context).textTheme.titleLarge
-                              ?.copyWith(color: AppTheme.primarySeedColor),
+                              ?.copyWith(color: AppTheme.getColorForTheme(
+                            context: context,
+                            lightModeColor: AppTheme.lightTextColor,
+                            darkModeColor: AppTheme.darkTextColor,
+                          ),
+                          ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
