@@ -30,7 +30,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final formattedDate = DateFormat(
-      'EEEE, MMMM d, yyyy h:mm a',
+      'EEEE, MMMM d, yyyy',
     ).format(DateTime.parse(widget.event.date!));
 
     return Scaffold(
@@ -46,7 +46,9 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
               tag: 'event-${widget.event.id}',
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: EventImage(event: widget.event, imageHeight: 300),
+                child: SizedBox(
+                    width: double.infinity,
+                    child: EventImage(event: widget.event, imageHeight: 300)),
               ),
             ),
             Gutter(),

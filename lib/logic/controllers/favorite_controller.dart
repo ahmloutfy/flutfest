@@ -1,3 +1,5 @@
+import 'package:flutfest/core/utils/dummy_events.dart';
+import 'package:flutfest/logic/models/event_model.dart';
 import 'package:get/get.dart';
 
 class FavoriteController extends GetxController {
@@ -16,4 +18,9 @@ class FavoriteController extends GetxController {
   bool isFavorite(int eventId) {
     return _favoriteEvents.containsKey(eventId) && _favoriteEvents[eventId]!;
   }
+
+  Event? getEventById(int id) {
+    return DummyEvents.events.firstWhereOrNull((e) => e.id == id);
+  }
+
 }
