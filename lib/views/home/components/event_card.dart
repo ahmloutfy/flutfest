@@ -102,14 +102,14 @@ class EventCard extends StatelessWidget {
                             ),
                             Obx(
                               () => IconButton(
-                                color:
-                                    favoriteController.favoriteEvents
-                                                .containsKey(event.id) &&
-                                            favoriteController
-                                                .favoriteEvents[event.id]!
-                                        ? Colors.red
-                                        : Colors.grey,
+
                                 icon: Icon(
+                                  color: favoriteController.favoriteEvents
+                                  .containsKey(event.id) &&
+                                  favoriteController
+                                      .favoriteEvents[event.id]!
+                                  ? Colors.red
+                                  : Colors.grey,
                                   favoriteController.favoriteEvents.containsKey(
                                             event.id,
                                           ) &&

@@ -126,7 +126,7 @@ class AppTheme {
         borderRadius: BorderRadius.circular(8),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: primarySeedColor, width: 2),
+        borderSide: BorderSide(color: lightBorderColor, width: 2),
         borderRadius: BorderRadius.circular(8),
       ),
     ),
@@ -222,7 +222,11 @@ class AppTheme {
       }),
     ),
 
-
+textSelectionTheme: TextSelectionThemeData(
+      selectionColor: lightTextColor.withValues(alpha: 0.3),
+      cursorColor: lightTextColor,
+      selectionHandleColor: lightTextColor,
+),
   );
 
   // 🌙 Dark Theme
@@ -290,7 +294,7 @@ class AppTheme {
         borderRadius: BorderRadius.circular(8),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: primarySeedColor, width: 2),
+        borderSide: BorderSide(color: darkBorderColor, width: 2),
         borderRadius: BorderRadius.circular(8),
       ),
     ),
@@ -382,6 +386,11 @@ class AppTheme {
         }
         return darkTextColor.withValues(alpha: 0.6);
       }),
+    ),
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: darkTextColor.withValues(alpha: 0.3),
+      cursorColor: darkTextColor,
+      selectionHandleColor: darkTextColor,
     ),
   );
 }

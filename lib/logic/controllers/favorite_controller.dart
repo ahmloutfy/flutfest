@@ -5,9 +5,12 @@ class FavoriteController extends GetxController {
 
   Map<int, bool> get favoriteEvents => _favoriteEvents;
 
-  void toggleFavorite(int eventId) {
-    _favoriteEvents.update(eventId, (value) => !value, ifAbsent: () => true);
+  bool toggleFavorite(int eventId) {
+    final currentStatus = _favoriteEvents[eventId] ?? false;
+    final newStatus = !currentStatus;
+    _favoriteEvents[eventId] = newStatus;
     update();
+    return newStatus;
   }
 
   bool isFavorite(int eventId) {
