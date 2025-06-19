@@ -13,13 +13,14 @@ class AppTheme {
   // ☀️ Light Mode Colors
   static const Color lightTextColor = Color(0xFF333333);
   static const Color lightButtonColor = Color(0xFFF4A100);
+  static const Color lightCursorColor = Color(0xFFF4A100);
   static const Color lightBackgroundColor = Colors.white;
   static const Color lightEventCardBackgroundColor = Color(0xFFF9F9F9);
   static const Color lightEventRSVPButtonColor = Color(0xFF27AE60);
   static const Color lightImportantEventColor = Color(0xFFD32F2F);
   static const Color lightConfirmedEventColor = Color(0xFF388E3C);
   static const Color lightShadowColor = Color(0xFFB0BEC5);
-  static const Color lightBorderColor = Color(0xFF333333);
+  static const Color lightBorderColor = Color(0xFFF4A100);
   static const Color lightInputFillColor = Color(0xFFF5F5F5);
   static const Color lightButtonTextColor = Colors.white;
   static const Color lightDividerColor = Color(0xFFBDBDBD);
@@ -28,13 +29,14 @@ class AppTheme {
   // 🌙 Dark Mode Colors
   static const Color darkTextColor = Color(0xFFE0E0E0);
   static const Color darkButtonColor = Color(0xFF1E88E5);
+  static const Color darkCursorColor = Color(0xFF1E88E5);
   static const Color darkBackgroundColor = Color(0xFF121212);
   static const Color darkEventCardBackgroundColor = Color(0xFF1E1E1E);
   static const Color darkEventRSVPButtonColor = Color(0xFF69F0AE);
   static const Color darkImportantEventColor = Color(0xFFFFCDD2);
   static const Color darkConfirmedEventColor = Color(0xFF81C784);
   static const Color darkShadowColor = Color(0xFF424242);
-  static const Color darkBorderColor = Color(0xFF616161);
+  static const Color darkBorderColor = Color(0xFF1E88E5);
   static const Color darkInputFillColor = Color(0xFF333333);
   static const Color darkButtonTextColor = Colors.white;
   static const Color darkDividerColor = Color(0xFF424242);
@@ -223,9 +225,9 @@ class AppTheme {
     ),
 
 textSelectionTheme: TextSelectionThemeData(
-      selectionColor: lightTextColor.withValues(alpha: 0.3),
-      cursorColor: lightTextColor,
-      selectionHandleColor: lightTextColor,
+      selectionColor: lightCursorColor.withValues(alpha: 0.3),
+      cursorColor: lightCursorColor,
+      selectionHandleColor: lightCursorColor,
 ),
   );
 
@@ -388,9 +390,9 @@ textSelectionTheme: TextSelectionThemeData(
       }),
     ),
     textSelectionTheme: TextSelectionThemeData(
-      selectionColor: darkTextColor.withValues(alpha: 0.3),
-      cursorColor: darkTextColor,
-      selectionHandleColor: darkTextColor,
+      selectionColor: darkCursorColor.withValues(alpha: 0.3),
+      cursorColor: darkCursorColor,
+      selectionHandleColor: darkCursorColor,
     ),
   );
 }

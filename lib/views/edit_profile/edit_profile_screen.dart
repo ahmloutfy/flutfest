@@ -1,0 +1,54 @@
+import 'package:flutfest/logic/controllers/edit_profile_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class EditProfileScreen extends StatelessWidget {
+  EditProfileScreen({super.key});
+
+  final controller = Get.put(EditProfileController(),);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Edit Profile'),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            const CircleAvatar(
+              radius: 50,
+              backgroundImage: AssetImage('assets/images/user.png'),
+            ),
+            const SizedBox(height: 24),
+            TextField(
+              controller: controller.nameController,
+              decoration: const InputDecoration(
+                labelText: 'Name',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: controller.emailController,
+              decoration: const InputDecoration(
+                labelText: 'Email',
+
+              ),
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.save),
+                label: const Text('Save Changes'),
+                onPressed: () => controller.saveChanges(context),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
