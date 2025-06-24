@@ -62,7 +62,6 @@ class CreateEventController extends GetxController {
           TextButton(
             onPressed: () {
               Navigator.pop(context);
-              // TODO: handle invite friends
             },
             child: const Text('Invite Friends'),
           ),
@@ -70,7 +69,6 @@ class CreateEventController extends GetxController {
             onPressed: () {
               Navigator.pop(context);
               Get.back();
-              // TODO: go to event browser screen
             },
             child: const Text('Browse Events'),
           ),
