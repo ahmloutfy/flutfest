@@ -68,6 +68,8 @@ class AppTheme {
     useMaterial3: true,
     brightness: Brightness.light,
     colorScheme: baseColorScheme.copyWith(
+      primary: primarySeedColor,
+      onPrimary: lightButtonTextColor,
       brightness: Brightness.light,
       onSurface: lightTextColor,
       surface: lightBackgroundColor,
@@ -241,6 +243,8 @@ class AppTheme {
     useMaterial3: true,
     brightness: Brightness.dark,
     colorScheme: baseColorScheme.copyWith(
+      primary: darkButtonColor,
+      onPrimary: darkButtonTextColor,
       brightness: Brightness.dark,
       onSurface: darkTextColor,
       surface: darkBackgroundColor,

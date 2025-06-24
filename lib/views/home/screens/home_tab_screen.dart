@@ -79,11 +79,19 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                       ),
             ),
             Expanded(
-              child: EventCard(
-                events: filteredEvents,
-                onEventTap: _navigateToEventDetails,
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  await Future.delayed(const Duration(milliseconds: 500),);
+
+                  setState(() {});
+                },
+                child: EventCard(
+                  events: filteredEvents,
+                  onEventTap: _navigateToEventDetails,
+                ),
               ),
             ),
+
           ],
         );
       },

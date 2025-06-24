@@ -9,7 +9,7 @@ class CreateEventButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       onPressed: () {
-        Get.to(() => const CreateEventScreen(),);
+        Get.to(() =>  CreateEventScreen(),);
       },
       icon: Icon(Icons.add),
       label: Text('Create Event'),
