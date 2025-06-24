@@ -1,10 +1,8 @@
 import 'package:flutfest/views/edit_profile/edit_profile_screen.dart';
 import 'package:flutfest/views/help_support/help_suppport_screen.dart';
 import 'package:flutfest/views/settings/settings_screen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -13,10 +11,6 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Account'),
-        centerTitle: true,
-      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [

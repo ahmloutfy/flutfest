@@ -75,6 +75,11 @@ class AppTheme {
 
     appBarTheme: AppBarTheme(color: lightBackgroundColor),
     scaffoldBackgroundColor: lightBackgroundColor,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: lightButtonColor,
+      foregroundColor: lightButtonTextColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
     textTheme: TextTheme(
       headlineLarge: GoogleFonts.montserrat(
         fontSize: 32,
@@ -224,11 +229,11 @@ class AppTheme {
       }),
     ),
 
-textSelectionTheme: TextSelectionThemeData(
+    textSelectionTheme: TextSelectionThemeData(
       selectionColor: lightCursorColor.withValues(alpha: 0.3),
       cursorColor: lightCursorColor,
       selectionHandleColor: lightCursorColor,
-),
+    ),
   );
 
   // 🌙 Dark Theme
@@ -243,6 +248,11 @@ textSelectionTheme: TextSelectionThemeData(
     appBarTheme: AppBarTheme(color: darkBackgroundColor),
 
     scaffoldBackgroundColor: darkBackgroundColor,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: darkButtonColor,
+      foregroundColor: darkButtonTextColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
     textTheme: TextTheme(
       headlineLarge: GoogleFonts.montserrat(
         fontSize: 32,
