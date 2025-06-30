@@ -2,9 +2,9 @@ import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutfest/theme.dart';
 
 class DummyEvents {
-  static List<Event> events = [
+  static List<EventModel> events = [
     // Past Events
-    Event(
+    EventModel(
       image: '${AppTheme.eventDirectory}marriage.png',
       id: 1,
       title: 'Wedding Celebration',
@@ -12,7 +12,7 @@ class DummyEvents {
       date: '2024-04-10',
       location: 'Cairo',
     ),
-    Event(
+    EventModel(
       image: '${AppTheme.eventDirectory}birthday.png',
       id: 2,
       title: 'Birthday Party',
@@ -20,7 +20,7 @@ class DummyEvents {
       date: '2024-03-15',
       location: 'Alexandria',
     ),
-    Event(
+    EventModel(
       image: '${AppTheme.eventDirectory}graduation.png',
       id: 3,
       title: 'Graduation Ceremony',
@@ -28,7 +28,7 @@ class DummyEvents {
       date: '2024-02-20',
       location: 'Giza',
     ),
-    Event(
+    EventModel(
       image: '${AppTheme.eventDirectory}engagement.png',
       id: 4,
       title: 'Engagement Party',
@@ -36,7 +36,7 @@ class DummyEvents {
       date: '2024-01-25',
       location: 'Aswan',
     ),
-    Event(
+    EventModel(
       image: '${AppTheme.eventDirectory}dinner.png',
       id: 5,
       title: 'Dinner Gathering',
@@ -45,7 +45,7 @@ class DummyEvents {
       location: 'Luxor',
     ),
     // Upcoming Events
-    Event(
+    EventModel(
       image: '${AppTheme.eventDirectory}concert.jpeg',
       id: 6,
       title: 'Music Concert',
@@ -54,7 +54,7 @@ class DummyEvents {
       location: 'Cairo',
       isUpcomingForDemo: true,
     ),
-    Event(
+    EventModel(
       image: '${AppTheme.eventDirectory}festival.jpeg',
       id: 7,
       title: 'Cultural Festival',
@@ -63,7 +63,7 @@ class DummyEvents {
       location: 'Alexandria',
       isUpcomingForDemo: true,
     ),
-    Event(
+    EventModel(
       image: '${AppTheme.eventDirectory}seminar.jpeg',
       id: 8,
       title: 'Business Seminar',
@@ -72,7 +72,7 @@ class DummyEvents {
       location: 'Giza',
       isUpcomingForDemo: true,
     ),
-    Event(
+    EventModel(
       image: '${AppTheme.eventDirectory}exhibition.jpeg',
       id: 9,
       title: 'Art Exhibition',
@@ -81,7 +81,7 @@ class DummyEvents {
       location: 'Aswan',
       isUpcomingForDemo: true,
     ),
-    Event(
+    EventModel(
       image: '${AppTheme.eventDirectory}charity_gala.jpeg',
       id: 10,
       title: 'Charity Gala',

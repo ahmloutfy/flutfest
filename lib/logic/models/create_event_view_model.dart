@@ -16,6 +16,14 @@ class CreateEventViewModel extends GetxController {
     selectedDate.value = date;
   }
 
+  void resetForm() {
+    titleController.clear();
+    locationController.clear();
+    descriptionController.clear();
+    pickedImage.value = null;
+    selectedDate.value = null;
+  }
+
   Future<void> pickImage() async {
     final picker = ImagePicker();
     final XFile? pickedFile =

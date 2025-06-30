@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class EventImage extends StatelessWidget {
   const EventImage({super.key, required this.event, this.imageHeight});
 
-  final Event event;
+  final EventModel event;
   final double? imageHeight;
 
   @override

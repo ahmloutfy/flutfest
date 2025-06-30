@@ -1,61 +1,90 @@
 // 📁 create_event_screen.dart
 
 import 'package:flutfest/logic/models/create_event_view_model.dart';
+import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutfest/theme.dart';
+import 'package:flutfest/views/home/screens/home_screen.dart';
 import 'package:flutfest/widgets/dialogs/custom_success_dialog.dart';
+import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/widgets/dialogs/dialog_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CreateEventScreen extends StatelessWidget {
-  CreateEventScreen({super.key});
+  CreateEventScreen({super.key, this.event});
 
-  final CreateEventViewModel viewModel = Get.put(CreateEventViewModel(),);
+  final CreateEventViewModel viewModel = Get.find();
   final _formKey = GlobalKey<FormState>();
+  final EventModel? event;
 
   void _submitForm(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       if (viewModel.pickedImage.value == null) {
-        Get.snackbar(
-          'Missing Image',
-          'Please select an image for the event',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        showCustomSnackBar(context, 'Please select an image for the event');
         return;
       }
 
-      // ✅ Success Dialog
+      if (viewModel.selectedDate.value == null) {
+        showCustomSnackBar(context, 'Please select a date for the event');
+        return;
+      }
+
       showDialog(
         context: context,
         builder: (context) => CustomAlertDialog(
           title: 'Event Created',
           content: 'Your event was successfully created!',
           actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                // TODO: Implement invite friends functionality
-              },
-              child: const Text('Invite Friends'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                // TODO: Navigate to events list screen
-                // Example: Get.to(() => const EventsListScreen());
-              },
-              child: const Text('Browse Events'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Just close the dialog
-              },
-              child: const Text('Close'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+              child: Wrap(
+                spacing: 5,
+                runSpacing: 5,
+                alignment: WrapAlignment.center,
+                children: [
+                  DialogActionButton(
+                    label: 'Share Event',
+                    onPressed: () {
+                      final eventTitle = event?.title ?? viewModel.titleController.text;
+                      final eventLocation = event?.location ?? viewModel.locationController.text;
+                      final eventDate = viewModel.selectedDate.value != null
+                          ? DateFormat.yMMMMd().format(viewModel.selectedDate.value!)
+                          : 'Unknown date';
+
+                      SharePlus.instance.share(
+                        ShareParams(
+                          text: 'Check out this event: $eventTitle - $eventLocation on $eventDate',
+                        ),
+                      );
+                    },
+                  ),
+                  DialogActionButton(
+                    label: 'Create Another',
+                    onPressed: () => viewModel.resetForm(),
+                  ),
+                  DialogActionButton(
+                    label: 'Invite Friends',
+                    onPressed: () => showCustomSnackBar(context, 'TODO: Implement invite friends logic'),
+                  ),
+                  DialogActionButton(
+                    label: 'Browse Events',
+                    onPressed: () => Get.to(() => const HomeScreen(),),
+                  ),
+                  DialogActionButton(
+                    label: 'Edit Event',
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       );
 
+    } else {
+      showCustomSnackBar(context, 'Please fill out all required fields');
     }
   }
 
@@ -84,9 +113,8 @@ class CreateEventScreen extends StatelessWidget {
             ),
             colorScheme: ColorScheme(
               brightness: isDark ? Brightness.dark : Brightness.light,
-              primary: isDark
-                  ? Colors.lightBlueAccent
-                  : AppTheme.primarySeedColor,
+              primary:
+              isDark ? Colors.lightBlueAccent : AppTheme.primarySeedColor,
               onPrimary: Colors.white,
               surface: isDark
                   ? AppTheme.darkBackgroundColor
@@ -117,11 +145,8 @@ class CreateEventScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Create Event'), centerTitle: true),
       body: Obx(
             () => SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(
+          padding: EdgeInsets.all(
             16,
-            16,
-            16,
-            MediaQuery.of(context).viewInsets.bottom + 100,
           ),
           child: Form(
             key: _formKey,
@@ -135,7 +160,6 @@ class CreateEventScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-
                 if (viewModel.pickedImage.value != null)
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
@@ -165,7 +189,6 @@ class CreateEventScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
                 const SizedBox(height: 24),
                 TextFormField(
                   controller: viewModel.titleController,
@@ -187,24 +210,20 @@ class CreateEventScreen extends StatelessWidget {
                   maxLines: 3,
                 ),
                 const SizedBox(height: 16),
-
                 InkWell(
                   onTap: () => _pickDate(context),
                   child: InputDecorator(
                     decoration: const InputDecoration(labelText: 'Date'),
                     child: Text(
                       viewModel.selectedDate.value != null
-                          ? DateFormat.yMMMMd().format(
-                        viewModel.selectedDate.value!,
-                      )
+                          ? DateFormat.yMMMMd()
+                          .format(viewModel.selectedDate.value!)
                           : 'Select a date',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 32),
-
                 Center(
                   child: ElevatedButton.icon(
                     onPressed: () => _submitForm(context),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BookingConfirmationScreen extends StatelessWidget {
-  final Event event;
+  final EventModel event;
 
   const BookingConfirmationScreen({super.key, required this.event});
 

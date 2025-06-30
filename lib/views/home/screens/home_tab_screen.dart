@@ -20,7 +20,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   String selectedTab = 'All';
   final FavoriteController favController = Get.put(FavoriteController());
 
-  List<Event> get filteredEvents {
+  List<EventModel> get filteredEvents {
     final now = DateTime.now();
 
     return DummyEvents.events.where((event) {
@@ -41,7 +41,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
     }).toList();
   }
 
-  void _navigateToEventDetails(Event event) {
+  void _navigateToEventDetails(EventModel event) {
     Get.to(() => EventDetailsScreen(event: event));
   }
 

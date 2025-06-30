@@ -10,8 +10,8 @@ import 'package:get/get.dart'; //
 
 class EventCard extends StatelessWidget {
 
-  final List<Event>? events;
-  final void Function(Event)? onEventTap;
+  final List<EventModel>? events;
+  final void Function(EventModel)? onEventTap;
 
   const EventCard({super.key, required this.events, this.onEventTap});
 
@@ -23,7 +23,7 @@ class EventCard extends StatelessWidget {
     return ListView.builder(
       itemCount: events!.length,
       itemBuilder: (context, index) {
-        final Event event = events![index];
+        final EventModel event = events![index];
         favoriteController.isFavorite(event.id);
         return Card(
           margin: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),

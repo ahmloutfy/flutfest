@@ -5,7 +5,7 @@ import '../models/event_model.dart';
 
 class SearchScreenController extends GetxController {
   var searchQuery = ''.obs;
-  var searchResults = <Event>[].obs;
+  var searchResults = <EventModel>[].obs;
   final textController = TextEditingController();
 
   void search(String query) {

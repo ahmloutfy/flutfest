@@ -15,7 +15,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../booking/booking_confirmation_screen.dart';
 
 class EventDetailsScreen extends StatefulWidget {
-  final Event event;
+  final EventModel event;
 
   const EventDetailsScreen({super.key, required this.event});
 

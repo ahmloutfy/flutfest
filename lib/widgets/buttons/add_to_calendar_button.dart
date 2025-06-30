@@ -3,7 +3,7 @@ import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutter/material.dart';
 
 class AddToCalendarButton extends StatelessWidget {
-  final Event event;
+  final EventModel event;
 
   const AddToCalendarButton({super.key, required this.event});
 

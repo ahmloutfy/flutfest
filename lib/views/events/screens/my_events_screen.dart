@@ -27,7 +27,7 @@ class MyEventsScreen extends StatelessWidget {
             .where((entry) => entry.value == true)
             .map((entry) => favoriteController.getEventById(entry.key))
             .where((event) => event != null)
-            .cast<Event>()
+            .cast<EventModel>()
             .toList();
 
         if (favoriteEvents.isEmpty) {

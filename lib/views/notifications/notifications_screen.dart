@@ -34,7 +34,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     },
   ];
 
-  Event getEventById(int id) {
+  EventModel getEventById(int id) {
     return DummyEvents.events.firstWhere((event) => event.id == id);
   }
 

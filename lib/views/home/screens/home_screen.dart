@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   String selectedTab = 'All';
-  List<Event> displayedEvents = DummyEvents.events;
+  List<EventModel> displayedEvents = DummyEvents.events;
   late FavoriteController favController;
 
   @override
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _filterEvents() {
     final now = DateTime.now();
-    List<Event> allEvents = DummyEvents.events;
+    List<EventModel> allEvents = DummyEvents.events;
 
     setState(() {
       if (selectedTab == 'All') {

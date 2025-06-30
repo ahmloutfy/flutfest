@@ -19,7 +19,7 @@ class FavoriteController extends GetxController {
     return _favoriteEvents.containsKey(eventId) && _favoriteEvents[eventId]!;
   }
 
-  Event? getEventById(int id) {
+  EventModel? getEventById(int id) {
     return DummyEvents.events.firstWhereOrNull((e) => e.id == id);
   }
 

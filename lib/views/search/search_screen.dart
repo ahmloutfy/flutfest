@@ -48,7 +48,7 @@ class SearchScreen extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           itemCount: controller.searchResults.length,
           itemBuilder: (context, index) {
-            Event event = controller.searchResults[index];
+            EventModel event = controller.searchResults[index];
 
             return Card(
               margin: const EdgeInsets.symmetric(vertical: 8),

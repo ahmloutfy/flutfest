@@ -1,9 +1,9 @@
-class Event {
+class EventModel {
   final int id;
   final String? title, date, description, location, image;
   bool isUpcomingForDemo;
 
-  Event({
+  EventModel({
     this.isUpcomingForDemo = false,
     required this.id,
     required this.title,
