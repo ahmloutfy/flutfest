@@ -1,16 +1,24 @@
-import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/routes.dart';
+import 'package:flutfest/theme.dart';
 import 'package:flutfest/widgets/backgrounds/intro_background.dart';
 import 'package:flutfest/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:flutter/foundation.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Color translucentBlue = AppTheme.getColorForTheme(
+      context: context,
+      lightModeColor: AppTheme.lightButtonColor.withValues(alpha: 0.2),
+      darkModeColor: AppTheme.darkButtonColor.withValues(alpha: 0.2),
+    );
+
     return Scaffold(
       body: IntroBackground(
         child: LayoutBuilder(
@@ -27,20 +35,15 @@ class WelcomeScreen extends StatelessWidget {
                   child: SvgPicture.asset(
                     'assets/images/flutfest_logo.svg',
                     width: width * 0.5,
-                    // Set the width relative to screen size
                     height: height * 0.3,
-                    // Set the height relative to screen size
-                    fit:
-                        BoxFit
-                            .contain, // Ensure the logo fits within the allocated space
+                    fit: BoxFit.contain,
                   ),
                 ),
                 // Welcome Text
                 Text(
                   'Welcome to FlutFest!',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                    fontSize:
-                        width * 0.08, // Font size relative to screen width
+                    fontSize: width * 0.08,
                   ),
                 ),
                 Gutter(),
@@ -50,8 +53,7 @@ class WelcomeScreen extends StatelessWidget {
                   'Manage and explore events seamlessly.',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize:
-                        width * 0.05, // Font size relative to screen width
+                    fontSize: width * 0.05,
                   ),
                 ),
                 Gutter(),
@@ -62,33 +64,48 @@ class WelcomeScreen extends StatelessWidget {
                   child: PrimaryButton(
                     text: 'Login',
                     onPressed: () {
-                      // Show Snack bar before navigating
-                      showCustomSnackBar(context, 'Navigate to Login Screen');
-
-                      // Transition to Login screen using GetX
-                      // Get.toNamed('/login');
+                      Get.toNamed(Routes.login);
                     },
                   ),
-                  // Button width relative to screen size
                 ),
                 Gutter(),
 
                 // Register Button
                 SizedBox(
-                  width: width * 0.6, // Button width relative to screen size
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
+                  width: width * 0.6,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: translucentBlue,
                       foregroundColor: Colors.white,
-                      side: BorderSide(color: Colors.white),
+                      side: BorderSide(color: Colors.white.withValues(alpha: 0.6)),
+                      elevation: 0,
                     ),
-                    child: const Text('Register'),
                     onPressed: () {
-                      // Transition to Register screen using GetX
-                      Get.toNamed('/register');
-                      // Replace with the actual route for Register screen
+                      Get.toNamed(Routes.register);
+
                     },
+                    child: const Text('Register'),
                   ),
                 ),
+                Gutter(),
+
+                // Temporary Preview Button for screen package navigation
+                if (kDebugMode)
+                  SizedBox(
+                    width: width * 0.6,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: translucentBlue,
+                        foregroundColor: Colors.white,
+                        side: BorderSide(color: Colors.white.withValues(alpha: 0.6)),
+                        elevation: 0,
+                      ),
+                      onPressed: () {
+                        Get.toNamed(Routes.home);
+                      },
+                      child: const Text('Explore UI Screens'),
+                    ),
+                  ),
               ],
             );
           },

@@ -1,9 +1,9 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
-import 'package:flutfest/views/details/event_details_screen.dart';
-import 'package:flutfest/views/home/screens/home_screen.dart';
+import 'package:flutfest/routes.dart';
 // ignore: unused_import
 import 'package:flutfest/widgets/buttons/create_event_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:get/get.dart';
 import 'package:flutfest/logic/controllers/favorite_controller.dart';
 import 'package:flutfest/logic/models/event_model.dart';
@@ -47,10 +47,24 @@ class MyEventsScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const SizedBox(height: 24),
-                ElevatedButton.icon(
-                  onPressed: () => Get.to(() => const HomeScreen(),),
-                  icon: const Icon(Icons.explore),
-                  label: const Text('Explore Events'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton.icon(
+
+                      onPressed: () =>   Get.toNamed( Routes.home),
+                      icon: const Icon(Icons.explore),
+                      label: const Text('Explore Events'),
+                    ),
+Gutter(),
+                    ElevatedButton.icon(
+
+                      onPressed: () =>   Get.toNamed( Routes.createEvent),
+                      icon: const Icon(Icons.add_circle_outline),
+                      label: const Text('Create Event'),
+                    ),
+
+                  ],
                 ),
               ],
             ),
@@ -64,7 +78,7 @@ class MyEventsScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton.icon(
-                  onPressed: () => Get.to(() => const HomeScreen(),),
+                  onPressed: () => Get.toNamed(Routes.home),
                   icon: const Icon(Icons.explore),
                   label: const Text('Explore Events'),
                 ),
@@ -112,7 +126,10 @@ class MyEventsScreen extends StatelessWidget {
                         },
                       ),
                       onTap: () {
-                        Get.to(() => EventDetailsScreen(event: event));
+                        Get.toNamed(
+                          Routes.eventDetails,
+                          arguments: event,
+                        );
                       },
                     ),
                   );

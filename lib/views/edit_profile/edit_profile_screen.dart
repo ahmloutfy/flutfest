@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
-
-  final controller = Get.put(EditProfileController(),);
+  final controller = Get.put(EditProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -18,24 +17,28 @@ class EditProfileScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/images/user.png'),
+            Obx(() {
+              return CircleAvatar(
+                radius: 50,
+                backgroundImage: controller.profileImage.value != null
+                    ? FileImage(controller.profileImage.value!)
+                    : const AssetImage('assets/images/user.png') as ImageProvider,
+              );
+            }),
+            TextButton.icon(
+              onPressed: () => controller.showImageSourceDialog(context),
+              icon: const Icon(Icons.camera_alt),
+              label: const Text('Change Photo'),
             ),
             const SizedBox(height: 24),
             TextField(
               controller: controller.nameController,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-              ),
+              decoration: const InputDecoration(labelText: 'Name'),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: controller.emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-
-              ),
+              decoration: const InputDecoration(labelText: 'Email'),
             ),
             const SizedBox(height: 24),
             SizedBox(

@@ -1,6 +1,4 @@
-import 'package:flutfest/views/edit_profile/edit_profile_screen.dart';
-import 'package:flutfest/views/help_support/help_suppport_screen.dart';
-import 'package:flutfest/views/settings/settings_screen.dart';
+import 'package:flutfest/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,7 +35,7 @@ class AccountScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 ElevatedButton.icon(
                   onPressed: () {
-                    Get.to(() => EditProfileScreen(),);
+                    Get.toNamed(Routes.editProfile);
                   },
                   icon: const Icon(Icons.edit),
                   label: const Text('Edit Profile'),
@@ -52,14 +50,15 @@ class AccountScreen extends StatelessWidget {
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
-              Get.to(() =>  SettingsScreen(),);
+              Get.toNamed(Routes.settings);
+
             },
           ),
           ListTile(
             leading: const Icon(Icons.help_outline),
             title: const Text('Help & Support'),
             onTap: () {
-              Get.to(() =>  HelpSupportScreen(),);
+              Get.toNamed(Routes.helpSupport);
             },
           ),
           ListTile(
@@ -73,8 +72,16 @@ class AccountScreen extends StatelessWidget {
                 textConfirm: 'Log Out',
                 confirmTextColor: Colors.white,
                 onConfirm: () {
+                  // 1. Close the dialog
                   Get.back();
+
+                  // 2. Clear session data (if needed)
+                  // sessionManager.clear(); // add this if you use any local auth/session logic
+
+                  // 3. Navigate to welcome/login screen and remove all previous routes
+                  Get.offAllNamed(Routes.welcome);
                 },
+
               );
             },
           ),

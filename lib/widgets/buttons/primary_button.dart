@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gutter/flutter_gutter.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
@@ -20,24 +19,28 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
-        foregroundColor: textColor,
+        backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.primary,
+        foregroundColor: textColor ?? Theme.of(context).colorScheme.onPrimary,
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+        textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+          fontWeight: FontWeight.bold,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
       ),
       onPressed: onPressed,
-      child:
-          icon == null
-              ? Text(text)
-              : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Spacer(),
-                  icon!,
-                  const SizedBox(width: 10),
-                  Gutter(),
-                  Text(text),
-                  Spacer(),
-                ],
-              ),
+      child: icon == null
+          ? Text(text)
+          : Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          icon!,
+          const SizedBox(width: 8),
+          Text(text),
+        ],
+      ),
     );
   }
 }

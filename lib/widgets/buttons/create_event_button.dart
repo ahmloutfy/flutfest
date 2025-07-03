@@ -1,5 +1,4 @@
 import 'package:flutfest/routes.dart';
-import 'package:flutfest/views/events/screens/create_event_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

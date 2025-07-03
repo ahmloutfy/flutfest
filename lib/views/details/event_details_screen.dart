@@ -1,5 +1,6 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/logic/models/event_model.dart';
+import 'package:flutfest/routes.dart';
 import 'package:flutfest/widgets/buttons/add_to_calendar_button.dart';
 import 'package:flutfest/widgets/buttons/booking_button.dart';
 import 'package:flutfest/widgets/buttons/favorite_button.dart';
@@ -12,7 +13,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../booking/booking_confirmation_screen.dart';
 
 class EventDetailsScreen extends StatefulWidget {
   final EventModel event;
@@ -114,8 +114,11 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                       isBooked ? Colors.red : theme.colorScheme.primary,
                   onPressed: () async {
                     if (!isBooked) {
-                      final result = await Get.to(
-                        () => BookingConfirmationScreen(event: widget.event),
+                      final result = await
+
+                      Get.toNamed(
+                        Routes.bookingConfirmation,
+                        arguments: widget.event,
                       );
                       if (result == true) {
                         setState(() {

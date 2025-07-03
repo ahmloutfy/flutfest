@@ -1,6 +1,6 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/logic/controllers/favorite_controller.dart';
-import 'package:flutfest/views/details/event_details_screen.dart';
+import 'package:flutfest/routes.dart';
 import 'package:flutfest/views/home/components/event_card.dart';
 import 'package:flutfest/views/home/components/events_categories.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   }
 
   void _navigateToEventDetails(EventModel event) {
-    Get.to(() => EventDetailsScreen(event: event));
+    Get.toNamed(Routes.eventDetails, arguments: event);
   }
 
   @override

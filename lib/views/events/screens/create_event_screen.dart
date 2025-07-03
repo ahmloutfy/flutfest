@@ -2,8 +2,8 @@
 
 import 'package:flutfest/logic/models/create_event_view_model.dart';
 import 'package:flutfest/logic/models/event_model.dart';
+import 'package:flutfest/routes.dart';
 import 'package:flutfest/theme.dart';
-import 'package:flutfest/views/home/screens/home_screen.dart';
 import 'package:flutfest/widgets/dialogs/custom_success_dialog.dart';
 import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/widgets/dialogs/dialog_action_button.dart';
@@ -70,7 +70,7 @@ class CreateEventScreen extends StatelessWidget {
                   ),
                   DialogActionButton(
                     label: 'Browse Events',
-                    onPressed: () => Get.to(() => const HomeScreen(),),
+                    onPressed: () => Get.toNamed(Routes.home),
                   ),
                   DialogActionButton(
                     label: 'Edit Event',

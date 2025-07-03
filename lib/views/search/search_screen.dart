@@ -1,5 +1,5 @@
 import 'package:flutfest/logic/controllers/search_controller.dart';
-import 'package:flutfest/views/details/event_details_screen.dart';
+import 'package:flutfest/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../logic/models/event_model.dart';
@@ -72,7 +72,7 @@ class SearchScreen extends StatelessWidget {
                 ),
                 subtitle: Text(event.location!),
                 onTap: () {
-                  Get.to(() => EventDetailsScreen(event: event),);
+                  Get.toNamed(Routes.eventDetails, arguments: event);
                 },
               ),
             );

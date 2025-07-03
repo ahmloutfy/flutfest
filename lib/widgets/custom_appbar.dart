@@ -1,6 +1,4 @@
-import 'package:flutfest/views/notifications/notifications_screen.dart';
-import 'package:flutfest/views/search/search_screen.dart';
-import 'package:flutfest/views/settings/settings_screen.dart';
+import 'package:flutfest/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,19 +12,20 @@ AppBar customAppBar(BuildContext context, String title, {TextStyle? textStyle}) 
       IconButton(
         icon: const Icon(Icons.notifications),
         onPressed: () {
-          Get.to(() => const NotificationsScreen(),);
+          Get.toNamed(Routes.notifications);
         },
       ),
       IconButton(
         icon: const Icon(Icons.search),
         onPressed: () {
-          Get.to(() => SearchScreen(),);
+          Get.toNamed(Routes.search);
         },
       ),
       IconButton(
         icon: const Icon(Icons.settings),
         onPressed: () {
-          Get.to(() => SettingsScreen(),);
+          Get.toNamed(Routes.settings);
+
         },
       ),
     ],

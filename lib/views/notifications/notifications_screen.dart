@@ -1,6 +1,6 @@
 import 'package:flutfest/core/utils/dummy_events.dart';
 import 'package:flutfest/logic/models/event_model.dart';
-import 'package:flutfest/views/details/event_details_screen.dart';
+import 'package:flutfest/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -121,11 +121,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     time: notification['time'],
                     icon: Icons.event_note,
                     onTap: () {
-                      Get.to(
-                        () => EventDetailsScreen(
-                          event: getEventById(notification['eventId']),
-                        ),
-                      );
+                       Get.toNamed( Routes. eventDetails, arguments: getEventById(notification['eventId']));
                     },
                   );
                 },

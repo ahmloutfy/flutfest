@@ -1,4 +1,6 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/routes.dart';
+import 'package:flutfest/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -77,9 +79,11 @@ class RegisterScreen extends StatelessWidget {
                       width: width * 0.8,
                       child: PrimaryButton(
                         onPressed: () {
+                          Get.toNamed(Routes.home);
+
                           showCustomSnackBar(
                             context,
-                            'Navigating to Home Screen',
+                            "UI navigation only. Implement your login logic.",
                           );
                         },
                         text: 'Register',
@@ -141,18 +145,12 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            Get.toNamed('/login');
+                            Get.toNamed(Routes.login);
                           },
                           child: Text(
                             'Login',
                             style: TextStyle(
-                              shadows: [
-                                Shadow(
-                                  blurRadius: 2,
-                                  color: Colors.black.withValues(alpha: 0.8),
-                                  offset: Offset(0, 1),
-                                ),
-                              ],
+                              color: AppTheme.lightLinkColor,
                             ),
                           ),
                         ),

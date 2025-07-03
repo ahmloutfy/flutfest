@@ -1,4 +1,5 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/routes.dart';
 import 'package:flutfest/theme.dart';
 import 'package:flutfest/widgets/backgrounds/intro_background.dart';
 import 'package:flutfest/widgets/buttons/primary_button.dart';
@@ -69,9 +70,9 @@ class LoginScreen extends StatelessWidget {
                           'Navigating to Forgot Password Screen',
                         );
                       },
-                      child: const Text(
+                      child:  Text(
                         'Forgot Password?',
-                        style: TextStyle(color: Colors.lightBlueAccent),
+                        style: TextStyle(color: AppTheme.darkLinkColor),
                       ),
                     ),
                     const Gutter(),
@@ -79,9 +80,10 @@ class LoginScreen extends StatelessWidget {
                       width: width * 0.8,
                       child: PrimaryButton(
                         onPressed: () {
+                          Get.toNamed(Routes.home);
                           showCustomSnackBar(
                             context,
-                            'Navigating to Home Screen',
+                            "UI navigation only. Implement your login logic.",
                           );
                         },
                         text: 'Login',
@@ -90,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                     const Gutter(),
                     Row(
                       children: [
-                        const Expanded(child: Divider()),
+                        const Expanded(child: Divider(),),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
@@ -98,7 +100,7 @@ class LoginScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ),
-                        const Expanded(child: Divider()),
+                        const Expanded(child: Divider(),),
                       ],
                     ),
                     const Gutter(),
@@ -165,18 +167,12 @@ class LoginScreen extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            Get.toNamed('/register');
+                            Get.toNamed(Routes.register);
                           },
                           child: Text(
                             'Register',
                             style: TextStyle(
-                              shadows: [
-                                Shadow(
-                                  blurRadius: 2,
-                                  color: Colors.black.withValues(alpha: 0.8),
-                                  offset: Offset(0, 1),
-                                ),
-                              ],
+                                color: AppTheme.lightLinkColor,
                             ),
                           ),
                         ),
