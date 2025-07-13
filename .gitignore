@@ -1,0 +1,44 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.packages
+.pub-cache/
+build/
+.pub/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+
+# IntelliJ related
+*.iml
+.idea/
+
+# VS Code related
+.vscode/
+
+# macOS / Linux / Windows build files
+macos/
+linux/
+windows/
+
+# Web build (optional, remove if you're building for web)
+web/
+
+# Android/Gradle related
+android/.gradle/
+android/app/build/
+
+# iOS related
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Generated.xcconfig
+ios/Pods/
+ios/.symlinks/
+ios/build/
+ios/Runner.xcworkspace/
+ios/.dart_tool/
+
+# Others
+*.log
+*.tmp
+*.swp
+.DS_Store
