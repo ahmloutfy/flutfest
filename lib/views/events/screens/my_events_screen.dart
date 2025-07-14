@@ -1,11 +1,10 @@
 import 'package:flutfest/core/utils/snackbar_helper.dart';
 import 'package:flutfest/routes.dart';
-// ignore: unused_import
-import 'package:flutfest/widgets/buttons/create_event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:get/get.dart';
 import 'package:flutfest/logic/controllers/favorite_controller.dart';
+import 'package:flutfest/logic/controllers/navigation_controller.dart';
 import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutfest/widgets/images/event_image.dart';
 import 'package:flutfest/theme.dart';
@@ -16,6 +15,7 @@ class MyEventsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoriteController = Get.find<FavoriteController>();
+    final navigationController = Get.find<NavigationController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -51,7 +51,9 @@ class MyEventsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton.icon(
-                      onPressed: () => Get.toNamed(Routes.home),
+                      onPressed: () {
+                        navigationController.goToHomeTab();
+                      },
                       icon: const Icon(Icons.explore),
                       label: const Text('Explore Events'),
                     ),
@@ -75,7 +77,9 @@ class MyEventsScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton.icon(
-                  onPressed: () => Get.toNamed(Routes.home),
+                  onPressed: () {
+                    navigationController.goToHomeTab();
+                  },
                   icon: const Icon(Icons.explore),
                   label: const Text('Explore Events'),
                 ),
@@ -87,8 +91,7 @@ class MyEventsScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final event = favoriteEvents[index];
                   return Card(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -106,12 +109,12 @@ class MyEventsScreen extends StatelessWidget {
                       subtitle: Text(
                         '${event.location} • ${event.date}',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppTheme.getColorForTheme(
-                                context: context,
-                                lightModeColor: Colors.grey,
-                                darkModeColor: Colors.grey.shade400,
-                              ),
-                            ),
+                          color: AppTheme.getColorForTheme(
+                            context: context,
+                            lightModeColor: Colors.grey,
+                            darkModeColor: Colors.grey.shade400,
+                          ),
+                        ),
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete, color: Colors.redAccent),
@@ -121,10 +124,7 @@ class MyEventsScreen extends StatelessWidget {
                         },
                       ),
                       onTap: () {
-                        Get.toNamed(
-                          Routes.eventDetails,
-                          arguments: event,
-                        );
+                        Get.toNamed(Routes.eventDetails, arguments: event);
                       },
                     ),
                   );

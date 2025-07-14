@@ -34,7 +34,11 @@ class Routes {
     GetPage(name: welcome, page: () => const WelcomeScreen()),
     GetPage(name: login, page: () => const LoginScreen()),
     GetPage(name: register, page: () => const RegisterScreen()),
-    GetPage(name: home, page: () => const HomeScreen()),
+    GetPage(
+      name: home,
+      page: () => HomeScreen(),
+      binding: EventBinding(),
+    ),
     GetPage(
       name: createEvent,
       page: () => CreateEventScreen(),

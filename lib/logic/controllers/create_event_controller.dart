@@ -1,3 +1,5 @@
+// 📁 lib/logic/controllers/create_event_controller.dart
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 class CreateEventController extends GetxController {
   final formKey = GlobalKey<FormState>();
+
   final titleController = TextEditingController();
   final locationController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -39,41 +42,17 @@ class CreateEventController extends GetxController {
         );
       },
     );
-    if (picked != null) selectedDate.value = picked;
-  }
 
-  void submitForm(BuildContext context) {
-    if (formKey.currentState!.validate()) {
-      if (pickedImage.value == null) {
-        Get.snackbar('Missing Image', 'Please select an image.', snackPosition: SnackPosition.BOTTOM);
-        return;
-      }
-      _showSuccessDialog(context);
+    if (picked != null) {
+      selectedDate.value = picked;
     }
   }
 
-  void _showSuccessDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Success'),
-        content: const Text('Event created successfully!'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Invite Friends'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              Get.back();
-            },
-            child: const Text('Browse Events'),
-          ),
-        ],
-      ),
-    );
+  void resetForm() {
+    titleController.clear();
+    locationController.clear();
+    descriptionController.clear();
+    selectedDate.value = null;
+    pickedImage.value = null;
   }
 }

@@ -1,6 +1,8 @@
-// 📁 create_event_screen.dart
+import 'dart:io';
 
 import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/logic/controllers/event_controller.dart';
+import 'package:flutfest/logic/controllers/navigation_controller.dart';
 import 'package:flutfest/logic/models/create_event_view_model.dart';
 import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutfest/routes.dart';
@@ -11,43 +13,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 
-// Custom Alert Dialog Widget
-class CustomAlertDialog extends StatelessWidget {
-  final String title;
-  final String content;
-  final List<Widget> actions;
-
-  const CustomAlertDialog({
-    super.key,
-    required this.title,
-    required this.content,
-    required this.actions,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.headlineSmall,
-        textAlign: TextAlign.center,
-      ),
-      content: Text(
-        content,
-        style: Theme.of(context).textTheme.bodyMedium,
-        textAlign: TextAlign.center,
-      ),
-      actions: actions,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      backgroundColor: DialogTheme.of(context).backgroundColor ??
-          Theme.of(context).scaffoldBackgroundColor,
-    );
-  }
-}
-
-// Custom Dialog Action Button Widget
+// Custom Action Button for Dialog
 class DialogActionButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
@@ -60,23 +26,13 @@ class DialogActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: theme.colorScheme.primary,
-          foregroundColor: theme.colorScheme.onPrimary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           padding: const EdgeInsets.symmetric(vertical: 14),
-          textStyle: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
         ),
         child: Text(label),
       ),
@@ -84,94 +40,128 @@ class DialogActionButton extends StatelessWidget {
   }
 }
 
+// Custom Dialog after event creation
+class CustomAlertDialog extends StatelessWidget {
+  final EventModel event;
+  final CreateEventViewModel viewModel;
+
+  const CustomAlertDialog({
+    super.key,
+    required this.event,
+    required this.viewModel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final navigationController = Get.find<NavigationController>();
+
+    return AlertDialog(
+      title: const Text('Event Created', textAlign: TextAlign.center),
+      content: const Text(
+        'Your event was successfully created!',
+        textAlign: TextAlign.center,
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+          child: Column(
+            children: [
+              DialogActionButton(
+                label: 'Share Event',
+                onPressed: () {
+                  Get.back();
+
+                  final eventTitle = event.title ?? viewModel.titleController.text;
+                  final eventLocation = event.location ?? viewModel.locationController.text;
+                  final eventDate = viewModel.selectedDate.value != null
+                      ? DateFormat.yMMMMd().format(viewModel.selectedDate.value!)
+                      : 'Unknown date';
+
+                  SharePlus.instance.share(
+                    ShareParams(
+                      text: 'Check out this event: $eventTitle - $eventLocation on $eventDate',
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+              DialogActionButton(
+                label: 'Create Another',
+                onPressed: () {
+                  Get.back();
+                  viewModel.resetForm();
+                },
+              ),
+              const SizedBox(height: 12),
+              DialogActionButton(
+                  label: 'Invite Friends',
+                  onPressed: () {
+                    Get.back();
+                    showCustomSnackBar('TODO: Implement invite friends logic');
+                  }
+              ),
+              const SizedBox(height: 12),
+              DialogActionButton(
+                label: 'Browse Events',
+                onPressed: () {
+                  Get.offAllNamed(Routes.home);
+                  navigationController.setIndex(0);
+                },
+              ),
+
+              const SizedBox(height: 12),
+              DialogActionButton(
+                label: 'Edit Event',
+                onPressed: () {
+                  Get.to(() => CreateEventScreen(event: event),);
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    );
+  }
+}
+
 class CreateEventScreen extends StatelessWidget {
   CreateEventScreen({super.key, this.event});
 
-  final CreateEventViewModel viewModel = Get.find();
   final _formKey = GlobalKey<FormState>();
+  final CreateEventViewModel viewModel = Get.find();
+  final EventController eventController = Get.find();
+  final NavigationController navigationController = Get.find<NavigationController>();
   final EventModel? event;
 
   void _submitForm(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       if (viewModel.pickedImage.value == null) {
-        showCustomSnackBar('Please select an image for the event');
+        showCustomSnackBar('Please select an image');
         return;
       }
 
       if (viewModel.selectedDate.value == null) {
-        showCustomSnackBar('Please select a date for the event');
+        showCustomSnackBar('Please select a date');
         return;
       }
 
-      showDialog(
-        context: context,
-        builder: (context) => CustomAlertDialog(
-          title: 'Event Created',
-          content: 'Your event was successfully created!',
-          actions: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  DialogActionButton(
-                    label: 'Share Event',
-                    onPressed: () {
-                      Get.back();
-
-                      final eventTitle = event?.title ?? viewModel.titleController.text;
-                      final eventLocation = event?.location ?? viewModel.locationController.text;
-                      final eventDate = viewModel.selectedDate.value != null
-                          ? DateFormat.yMMMMd().format(viewModel.selectedDate.value!)
-                          : 'Unknown date';
-
-                      SharePlus.instance.share(
-                        ShareParams(
-                          text: 'Check out this event: $eventTitle - $eventLocation on $eventDate',
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  DialogActionButton(
-                    label: 'Create Another',
-                    onPressed: () {
-                      Get.back();
-                      viewModel.resetForm();
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  DialogActionButton(
-                    label: 'Invite Friends',
-                    onPressed: () {
-                      Get.back();
-                      showCustomSnackBar('TODO: Implement invite friends logic');
-                    }
-                  ),
-                  const SizedBox(height: 12),
-                  DialogActionButton(
-                    label: 'Browse Events',
-                    onPressed: () {
-                      Get.back();
-                      Get.toNamed(Routes.home);
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  DialogActionButton(
-                    label: 'Edit Event',
-                    onPressed: () {
-                      Get.to(() => CreateEventScreen(event: event),);
-                    },
-                  ),
-
-                ],
-              ),
-            ),
-          ],
-
-        ),
+      final newEvent = EventModel(
+        id: DateTime.now().millisecondsSinceEpoch,
+        title: viewModel.titleController.text,
+        location: viewModel.locationController.text,
+        description: viewModel.descriptionController.text,
+        date: viewModel.selectedDate.value!.toIso8601String(),
+        image: viewModel.pickedImage.value!.path,
       );
 
+
+      eventController.addEvent(newEvent);
+
+      showDialog(
+        context: context,
+        builder: (context) => CustomAlertDialog(event: newEvent, viewModel: viewModel),
+      );
     } else {
       showCustomSnackBar('Please fill out all required fields');
     }
@@ -228,7 +218,6 @@ class CreateEventScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       appBar: AppBar(title: const Text('Create Event'), centerTitle: true),
       body: Obx(
             () => SingleChildScrollView(
@@ -237,62 +226,50 @@ class CreateEventScreen extends StatelessWidget {
             key: _formKey,
             child: Column(
               children: [
-                Center(
-                  child: ElevatedButton.icon(
-                    onPressed: viewModel.pickImage,
-                    icon: const Icon(Icons.photo),
-                    label: const Text('Add Image'),
-                  ),
+                ElevatedButton.icon(
+                  onPressed: viewModel.pickImage,
+                  icon: const Icon(Icons.photo),
+                  label: const Text('Add Image'),
                 ),
                 const SizedBox(height: 16),
-                if (viewModel.pickedImage.value != null)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.file(
-                      viewModel.pickedImage.value!,
-                      width: double.infinity,
-                      height: 200,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                else
-                  Container(
-                    height: 200,
+                viewModel.pickedImage.value != null
+                    ? ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.file(
+                    File(viewModel.pickedImage.value!.path),
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.grey[200],
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'No image selected',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
+                    height: 200,
+                    fit: BoxFit.cover,
                   ),
+                )
+                    : Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Center(
+                    child: Text('No image selected'),
+                  ),
+                ),
                 const SizedBox(height: 24),
                 CustomTextField(
                   controller: viewModel.titleController,
                   label: 'Event Title',
-                  validator: (val) =>
-                  val!.isEmpty ? 'Please enter a title' : null,
+                  validator: (val) => val!.isEmpty ? 'Please enter a title' : null,
                 ),
                 const SizedBox(height: 16),
                 CustomTextField(
                   controller: viewModel.locationController,
                   label: 'Location',
-                  validator: (val) =>
-                  val!.isEmpty ? 'Please enter a location' : null,
+                  validator: (val) => val!.isEmpty ? 'Please enter a location' : null,
                 ),
                 const SizedBox(height: 16),
                 CustomTextField(
-                  maxLines: 3,
                   controller: viewModel.descriptionController,
                   label: 'Description',
+                  maxLines: 3,
                 ),
                 const SizedBox(height: 16),
                 InkWell(
@@ -301,26 +278,16 @@ class CreateEventScreen extends StatelessWidget {
                     decoration: const InputDecoration(labelText: 'Date'),
                     child: Text(
                       viewModel.selectedDate.value != null
-                          ? DateFormat.yMMMMd()
-                          .format(viewModel.selectedDate.value!)
+                          ? DateFormat.yMMMMd().format(viewModel.selectedDate.value!)
                           : 'Select a date',
-                      style: TextStyle(
-                        color: AppTheme.getColorForTheme(
-                          context: context,
-                          lightModeColor: AppTheme.lightFieldTextColor,
-                          darkModeColor: AppTheme.darkFieldTextColor,
-                        ),
-                      ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 32),
-                Center(
-                  child: ElevatedButton.icon(
-                    onPressed: () => _submitForm(context),
-                    icon: const Icon(Icons.check),
-                    label: const Text('Create Event'),
-                  ),
+                ElevatedButton.icon(
+                  onPressed: () => _submitForm(context),
+                  icon: const Icon(Icons.check),
+                  label: const Text('Create Event'),
                 ),
               ],
             ),
