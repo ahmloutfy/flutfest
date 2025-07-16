@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/core/helpers/snackbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

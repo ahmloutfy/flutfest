@@ -1,4 +1,4 @@
-import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/core/helpers/snackbar_helper.dart';
 import 'package:flutfest/logic/models/event_model.dart';
 import 'package:flutfest/routes.dart';
 import 'package:flutfest/widgets/buttons/add_to_calendar_button.dart';

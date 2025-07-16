@@ -1,9 +1,9 @@
-import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/core/helpers/snackbar_helper.dart';
 import 'package:flutfest/routes.dart';
 import 'package:flutfest/theme.dart';
 import 'package:flutfest/widgets/backgrounds/intro_background.dart';
 import 'package:flutfest/widgets/buttons/primary_button.dart';
-import 'package:flutfest/widgets/custom_text_field.dart';
+import 'package:flutfest/widgets/fields/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';

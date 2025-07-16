@@ -1,4 +1,4 @@
-import 'package:flutfest/core/utils/snackbar_helper.dart';
+import 'package:flutfest/core/helpers/snackbar_helper.dart';
 import 'package:flutfest/logic/controllers/event_controller.dart';
 import 'package:flutfest/logic/controllers/favorite_controller.dart';
 import 'package:flutfest/routes.dart';

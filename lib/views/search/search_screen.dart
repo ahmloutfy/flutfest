@@ -1,6 +1,6 @@
 import 'package:flutfest/logic/controllers/search_controller.dart';
 import 'package:flutfest/routes.dart';
-import 'package:flutfest/widgets/custom_text_field.dart';
+import 'package:flutfest/widgets/fields/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../logic/models/event_model.dart';
