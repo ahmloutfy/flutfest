@@ -1,4 +1,5 @@
 import 'package:flutfest/core/helpers/pick_date_helper.dart';
+import 'package:flutfest/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,62 +34,78 @@ class CreateEventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Create Event'), centerTitle: true),
-      body: Obx(
-            () => SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                ElevatedButton.icon(
-                  onPressed: viewModel.pickImage,
-                  icon: const Icon(Icons.photo),
-                  label: const Text('Add Image'),
-                ),
-                const SizedBox(height: 16),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              ElevatedButton.icon(
+                onPressed: viewModel.pickImage,
+                icon: const Icon(Icons.photo),
+                label: const Text('Add Image'),
+              ),
+              const SizedBox(height: 16),
 
-                // ✅ Image Preview Widget
-                ImagePickerPreview(imageFile: viewModel.pickedImage.value),
+              /// ✅ Image Preview - reactive
+              Obx(() => ImagePickerPreview(imageFile: viewModel.pickedImage.value)),
 
-                const SizedBox(height: 24),
-                CustomTextField(
-                  controller: viewModel.titleController,
-                  label: 'Event Title',
-                  validator: (val) => val!.isEmpty ? 'Please enter a title' : null,
+              const SizedBox(height: 24),
+              CustomTextField(
+                controller: viewModel.titleController,
+                label: 'Event Title',
+                validator: (val) => val!.isEmpty ? 'Please enter a title' : null,
+              ),
+              const SizedBox(height: 16),
+
+              /// ✅ Location Picker Button
+              ElevatedButton.icon(
+                onPressed: () async {
+                  final pickedLocation = await Get.toNamed(Routes.pickLocation);
+                  if (pickedLocation != null) {
+                    viewModel.setLocation(pickedLocation);
+                  }
+                },
+                icon: const Icon(Icons.location_on),
+
+                /// ✅ reactive label
+                label: Obx(() {
+                  final location = viewModel.pickedLocationText.value;
+                  return Text(location.isEmpty ? 'Pick Location' : location);
+                }),
+
+              ),
+
+              const SizedBox(height: 16),
+              CustomTextField(
+                controller: viewModel.descriptionController,
+                label: 'Description',
+                maxLines: 3,
+              ),
+              const SizedBox(height: 16),
+
+              /// ✅ reactive date picker
+              Obx(() => DatePickerField(
+                selectedDate: viewModel.selectedDate.value,
+                onTap: () => _handleDatePick(context),
+              )),
+
+              const SizedBox(height: 32),
+              ElevatedButton.icon(
+                onPressed: () => submitEventForm(
+                  context: context,
+                  formKey: _formKey,
+                  viewModel: viewModel,
+                  eventController: eventController,
                 ),
-                const SizedBox(height: 16),
-                CustomTextField(
-                  controller: viewModel.locationController,
-                  label: 'Location',
-                  validator: (val) => val!.isEmpty ? 'Please enter a location' : null,
-                ),
-                const SizedBox(height: 16),
-                CustomTextField(
-                  controller: viewModel.descriptionController,
-                  label: 'Description',
-                  maxLines: 3,
-                ),
-                const SizedBox(height: 16),
-                DatePickerField(
-                  selectedDate: viewModel.selectedDate.value,
-                  onTap: () => _handleDatePick(context),
-                ),
-                const SizedBox(height: 32),
-                ElevatedButton.icon(
-                  onPressed: () => submitEventForm(
-                    context: context,
-                    formKey: _formKey,
-                    viewModel: viewModel,
-                    eventController: eventController,
-                  ),
-                  icon: const Icon(Icons.check),
-                  label: const Text('Create Event'),
-                ),
-              ],
-            ),
+                icon: const Icon(Icons.check),
+                label: const Text('Create Event'),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+
 }

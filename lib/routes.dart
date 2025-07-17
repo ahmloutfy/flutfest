@@ -12,6 +12,7 @@ import 'views/edit_profile/edit_profile_screen.dart';
 import 'views/forgot_password/forgot_password_screen.dart';
 import 'views/help_support/help_suppport_screen.dart';
 import 'views/notifications/notifications_screen.dart';
+import 'views/pick_location/pick_location_screen.dart';
 import 'views/search/search_screen.dart';
 import 'views/settings/settings_screen.dart';
 
@@ -29,8 +30,14 @@ class Routes {
   static const String helpSupport = '/help-support';
   static const String search = '/search';
   static const String forgotPassword = '/forgot-password';
+  static const String pickLocation = '/pick-location';
 
   static List<GetPage> pages = [
+    GetPage(
+      name: pickLocation,
+      page: () => PickLocationScreen(),
+    ),
+
     GetPage(name: welcome, page: () => const WelcomeScreen()),
     GetPage(name: login, page: () => const LoginScreen()),
     GetPage(name: register, page: () => const RegisterScreen()),

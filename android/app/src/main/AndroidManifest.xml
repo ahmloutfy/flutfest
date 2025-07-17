@@ -13,8 +13,12 @@
             <data android:scheme="mailto" />
         </intent>
     </queries>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
+
+
+
         android:label="FlutFest"
         android:icon="@mipmap/ic_launcher">
 
@@ -41,5 +45,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAqDvJa0q_XJIT5HE7PR7CC4m_jtaq7a1E"/>
+
     </application>
 </manifest>
